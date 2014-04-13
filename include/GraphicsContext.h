@@ -6,7 +6,6 @@
 namespace spider {
     class GraphicsContext {
 	private:
-		spider_position origo;
 		FontStyle *fontStyle;
 
 	public:

@@ -25,13 +25,13 @@ namespace spider {
 		int x;
 		int y;
 	};
-	typedef struct s_size {
+	typedef struct  {
 		int width;
 		int height;
 		int x;
 		int y;
 		int z;
-	};
+	} s_size;
 
 	typedef int(*s_event)(void *, void *);
 }

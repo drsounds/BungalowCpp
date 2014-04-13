@@ -6,7 +6,7 @@ namespace spider {
 
 	class WindowElement : public VBoxElement {
 	public:
-		void Draw(spider::GraphicsContext *graphics);
+		void Draw(spider::GraphicsContext *gs);
 		WindowElement();
 
 	};
