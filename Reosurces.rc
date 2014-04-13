@@ -1,0 +1,7 @@
+#ifndef REOSURCES_RC_INCLUDED
+#define REOSURCES_RC_INCLUDED
+#include "Resource.h"
+
+IDS_APP_TITLE "Spoyler"
+
+#endif // REOSURCES_RC_INCLUDED
