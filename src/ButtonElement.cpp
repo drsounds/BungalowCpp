@@ -7,15 +7,31 @@ spider::ButtonElement::ButtonElement()
 }
 void spider::ButtonElement::Draw(int x, int y, spider::GraphicsContext *c)
 {
-    spider::Element::Draw(x, y, c);
-    if(this->getInnerText() != NULL) {
-        spider::FontStyle *fontStyle = new FontStyle("Tahoma", 11, false, false, false);
-		char *text = this->getInnerText();
-		spider::rectangle tSize = c->measureString(text, fontStyle);
-		int x = (this->getWidth() / 2) - (tSize.width / 2);
-		int y = (this->getHeight() / 2) - (tSize.height / 2);
+    if (this->absoluteBounds == NULL)
+    this->absoluteBounds = new rectangle;
 
-		c->drawString(text,fontStyle, new Color(255, 255, 255, 255), x, y, 255, 8);
-		delete fontStyle;
+    this->absoluteBounds->x = x + this->getX();
+    this->absoluteBounds->y = y + this->getY();
+    this->absoluteBounds->width = this->getWidth();
+    this->absoluteBounds->height = this->getHeight();
+
+    Color *bgColor = (Color *)this->getAttributeObj("bgcolor");
+    Color *fgColor = (Color *)this->getAttributeObj("fgcolor");
+    int fontSize = (int)this->getAttributeObj("size");
+    string *fontFamily = (string *)this->getAttributeObj("font");
+    if (fontFamily == NULL) {
+        fontFamily = new string("MS Sans Serif");
+    }
+	c->fillRectangle(this->absoluteBounds->x, this->absoluteBounds->y, width, height, bgColor);
+
+    if(this->getInnerText() != NULL) {
+        spider::FontStyle *font = new FontStyle((char *)fontFamily->c_str(), fontSize, false, false, false);
+		char *text = this->getInnerText();
+		spider::rectangle tSize = c->measureString(text, font);
+		int x = (this->getWidth() / 2) - (tSize.width / 2) + this->absoluteBounds->x;
+		int y = (this->getHeight() / 2) - (tSize.height / 2) + this->absoluteBounds->y;
+
+		c->drawString(text,font, fgColor, x, y, 255, 8);
+		delete font;
 	}
 }

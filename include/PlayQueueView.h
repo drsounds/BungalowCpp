@@ -3,16 +3,20 @@
 
 #include "ViewElement.h"
 namespace spider {
-class PlayQueueView : public ViewElement
-{
-    public:
-        PlayQueueView();
-        PlayQueueView(Element *parent);
-        void navigate(string uri);
-        virtual ~PlayQueueView();
-    protected:
-    private:
-};
+    namespace views {
+        class PlayQueueView : public ViewElement
+        {
+            public:
+                PlayQueueView();
+                PlayQueueView(Element *parent);
+                void navigate(string uri);
+                bool acceptsUri(string uri);
+                virtual ~PlayQueueView();
+            protected:
+            private:
+        };
+    }
 }
+
 
 #endif // PLAYQUEUEVIEW_H

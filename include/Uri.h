@@ -4,13 +4,13 @@
 namespace spider {
     class Uri {
 	private:
+
+		list<char *> *fragments;
+	public:
 		char *protocol;
 		char *entity;
 		char *id;
 		char *uri;
-
-		list<char *> *fragments;
-	public:
 		Uri(char *uri);
 		char *getUri() {
             return this->uri;

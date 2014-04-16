@@ -7,7 +7,9 @@
 #include "GraphicsContext.h"
 namespace spider {
     class Element : public Node {
-    private:
+
+    public:
+        rectangle *absoluteBounds;
         int width;
         int height;
         int x;
@@ -25,9 +27,6 @@ namespace spider {
         char *data;
         Element *windowElement;
         Element *mainWindowElement;
-        rectangle *absoluteBounds;
-    public:
-
         virtual void Draw(int x, int y, GraphicsContext *c);
         string getType() {
             return "Element";

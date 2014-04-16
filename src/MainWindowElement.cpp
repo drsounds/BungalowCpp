@@ -61,13 +61,16 @@ namespace spider {
         treeView->setWindowElement(this->getWindowElement());
         treeView->setMainWindowElement(this);
         // Add sample elements
-        for (int i = 0; i < 3; i++) {
-            TreeItem *item = new TreeItem(new Uri("spoyler:internal:start"));
+        TreeItem *item = new TreeItem(new Uri("spoyler:internal:start"));
 
-            item->setSelected(i == 0);
-            treeView->addItem(item);
-        }
+        item->setSelected(false);
+        TreeItem *item2 = new TreeItem(new Uri("spoyler:internal:history"));
+
+        item2->setSelected(false);
         treeView->addEventListener("itemselected", treeview_itemselected);
+        treeView->addItem(item);
+        treeView->addItem(item2);
+
         // Add viewstack
 
 

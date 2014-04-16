@@ -221,6 +221,9 @@ char *Element::getId() {
 
 
 void Element::Draw(int x, int y, GraphicsContext *c) {
+    if (!this->isVisible()) {
+        return;
+    }
     if (this->absoluteBounds == NULL)
     this->absoluteBounds = new rectangle;
 
@@ -243,8 +246,10 @@ void Element::Draw(int x, int y, GraphicsContext *c) {
     Color *bgColor = (Color *)this->getAttributeObj("bgcolor");
     Color *fgColor = (Color *)this->getAttributeObj("fgcolor");
     int fontSize = (int)this->getAttributeObj("size");
-    char *fontFamily = (char *)this->getAttributeObj("font");
-
+    string *fontFamily = (string *)this->getAttributeObj("font");
+    if (fontFamily == NULL) {
+        fontFamily = new string("MS Sans Serif");
+    }
 	c->fillRectangle(x, y, width, height, bgColor);
 	//c->drawRectangle(x, y, this->getWidth(), this->getHeight(), (Color *)this->getAttributeObj("bgcolor"));
 	//Color color(255, 0, 0, 255);
@@ -252,7 +257,7 @@ void Element::Draw(int x, int y, GraphicsContext *c) {
     char *text = this->getInnerText();
     // Draw text
     if (text != NULL)
-        c->drawString(this->getInnerText(), new FontStyle(fontFamily, fontSize, fontSize / 2, false, false), fgColor, x, y, 300, 8);
+        c->drawString(this->getInnerText(), new FontStyle((char *)fontFamily->c_str(), fontSize, fontSize / 2, false, false), fgColor, x, y, 300, 8);
 
 	// adjust for scroll
     x -= this->scrollX;

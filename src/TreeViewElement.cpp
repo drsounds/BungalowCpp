@@ -65,7 +65,9 @@ void TreeViewElement::Draw(int x, int y, GraphicsContext *g) {
             g->fillRectangle(x, y + top , this->getWidth(), itemHeight, new Color(244, 255, 255, 255));
 		}
 		Color *color =  item->isSelected() ? (Color *)new Color(0, 0, 0, 255) : (Color *)this->getAttributeObj("fgcolor");
-		g->drawString(item->text(), this->getFont(), (Color *)color, 20 + x, y + top, this->getWidth(), itemHeight);
+		rectangle strB = g->measureString(item->text(), font);
+        int ttop = (top + (itemHeight / 2)) - (strB.height / 2);
+		g->drawString(item->text(), this->getFont(), (Color *)color, 20 + x, y + ttop, this->getWidth(), itemHeight);
 
 		top += itemHeight;
 	}

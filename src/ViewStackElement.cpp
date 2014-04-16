@@ -1,6 +1,7 @@
 #include "ViewStackElement.h"
 #include "WhatsNewView.h"
 #include <regex>
+#include "PlayQueueView.h"
 #include <list>
 namespace spider {
     ViewStackElement::ViewStackElement()
@@ -14,6 +15,8 @@ namespace spider {
          this->history = new std::stack<string *>;
          this->future = new std::stack<string *>;
         list<Node *> *children = this->getChildNodes();
+        this->appendChild(new views::WhatsNewView(this));
+        this->appendChild(new views::PlayQueueView(this));
     }
     /**
      * Main navigation handler inside Spotify
@@ -24,8 +27,20 @@ namespace spider {
         std::stack<string *> *history = this->history;
         ViewStackElement *th = this;
         // Hide all views
-
-        if (std::regex_match(uri.c_str(), std::regex("spoyler:internal:start"))) {
+        this->pack();
+        this->invalidate();
+        for (std::list<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
+            Node *node = static_cast<Node *>(*it);
+            ViewElement *view = (ViewElement *)node;
+            if (view->acceptsUri(uri)) {
+                view->setVisible(true);
+                view->navigate(uri);
+            } else {
+                view->setVisible(false);
+            }
+            this->invalidate();
+        }
+       /* if (std::regex_match(uri.c_str(), std::regex("spoyler:internal:start"))) {
 
             // Show What's new view
             view = new views::WhatsNewView((Element *)this);
@@ -71,8 +86,8 @@ namespace spider {
         if (view != NULL) {
             this->appendChild(view);
             view->navigate(uri);
-        }
-        this->invalidate();
+        }*/
+
 
     }
 

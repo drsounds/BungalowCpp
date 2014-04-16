@@ -64,8 +64,10 @@ namespace spider {
                 child->setX(leftwidth + child->getMargins()->left);
 
             }
-            else if(side > 0)
-                child->setX(leftwidth + flexWidth + right );
+            else if(side > 0) {
+                child->setX(leftwidth + flexWidth + right -this->getPadding()->right *2 - this->getMargins()->right * 2);
+
+            }
             child->setY(this->getPadding()->top + child->getMargins()->top);
 
             child->setHeight(this->getHeight() - (this->getPadding()->bottom * 2 + child->getMargins()->bottom * 2));

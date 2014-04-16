@@ -1,12 +1,16 @@
 #include "WhatsNewView.h"
 #include "ButtonElement.h"
 #include "HBoxElement.h"
+#include <regex>
 namespace spider {
     namespace views {
         WhatsNewView::WhatsNewView()
          : ViewElement::ViewElement()
         {
             //ctor
+        }
+        bool WhatsNewView::acceptsUri(string uri) {
+            return std::regex_match(uri.c_str(), std::regex("spoyler:internal:start"));
         }
         WhatsNewView::WhatsNewView(Element *parent)
          : ViewElement::ViewElement(parent)
@@ -15,7 +19,7 @@ namespace spider {
             // Build the view
             HBoxElement *hbox = new HBoxElement(this);
             hbox->getPadding()->top = 12;
-            hbox->getPadding()->left = 6;
+            hbox->getPadding()->left = 16;
             hbox->getPadding()->bottom = 12;
             hbox->getPadding()->right =  16;
 
@@ -31,7 +35,7 @@ namespace spider {
             title->setInnerText("What's New\0");
             title->set("height", "60");
             title->set("width", "120");
-            title->set("size", "12");
+            title->set("size", "16");
             hbox->appendChild(title);
 
             // Add flex
@@ -48,7 +52,30 @@ namespace spider {
             more->set("fgcolor", "#000000");
             more->set("bgcolor", "#878787");
             more->setInnerText("More\0");
+            more->set("size", "11");
             hbox->appendChild(more);
+
+
+            HBoxElement *whatsNew1 = new HBoxElement(this);
+            whatsNew1->set("height", "500");
+            this->appendChild(whatsNew1);
+
+            // Create next chapter
+            HBoxElement *hbox2 = new HBoxElement(this);
+            hbox2->getPadding()->top = 12;
+            hbox2->getPadding()->left = 16;
+            hbox2->getPadding()->bottom = 12;
+            hbox2->getPadding()->right =  16;
+            hbox2->set("height", "200");
+            this->appendChild(hbox2);
+
+            HBoxElement *title2 = new HBoxElement(hbox);
+            title2->set("fgcolor", "#ffaaff");
+            title2->setInnerText("Artists you might like \0");
+            title2->set("height", "60");
+            title2->set("width", "620");
+            title2->set("size", "16");
+            hbox2->appendChild(title2);
 
         }
         void WhatsNewView::navigate(string uri) {

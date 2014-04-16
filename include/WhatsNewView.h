@@ -10,6 +10,7 @@ namespace spider {
                 WhatsNewView(Element *parent);
                 virtual ~WhatsNewView();
                 void navigate(string uri);
+                bool acceptsUri(string uri);
             protected:
             private:
         };

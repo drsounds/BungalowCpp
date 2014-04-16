@@ -1,19 +1,25 @@
 #include "PlayQueueView.h"
+#include <regex>
 namespace spider {
-PlayQueueView::PlayQueueView()
-{
-    //ctor
-}
-PlayQueueView::PlayQueueView(Element *parent)
-    : ViewElement(parent)
-{
-    //ctor
-}
-void PlayQueueView::navigate(string uri) {
+    namespace views {
+        PlayQueueView::PlayQueueView()
+        {
+            //ctor
+        }
+        PlayQueueView::PlayQueueView(Element *parent)
+            : ViewElement(parent)
+        {
+            //ctor
+        }
+        void PlayQueueView::navigate(string uri) {
 
-}
-PlayQueueView::~PlayQueueView()
-{
-    //dtor
-}
+        }
+        bool PlayQueueView::acceptsUri(string uri) {
+            return std::regex_match(uri.c_str(), std::regex("spoyler:internal:(history|playqueue)"));
+        }
+        PlayQueueView::~PlayQueueView()
+        {
+            //dtor
+        }
+    }
 }
