@@ -6,7 +6,17 @@
 #include "EventArgs.h"
 #include "TreeItem.h"
 namespace spider {
-
+    class TreeViewEventArgs : public EventArgs {
+    private:
+        TreeItem *item;
+    public:
+        TreeItem *getItem() {
+            return this->item;
+        }
+        void setItem(TreeItem *item) {
+            this->item = item;
+        }
+    };
     class TreeViewElement : public Element {
 	private:
 		vector<TreeItem *> *mItems;

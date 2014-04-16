@@ -5,8 +5,7 @@ namespace spider {
 	class BoxElement : public Element {
 
 	public:
-	    BoxElement(Element *parent) : Element(parent) {
-	    }
+	    BoxElement(Element *parent);
 		BoxElement();
 		~BoxElement();
 		void pack();

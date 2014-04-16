@@ -41,7 +41,8 @@ void Element::mousedown(int mouseButton, int x, int y) {
 	}
 }
 
-Element::Element() {
+Element::Element() :
+    Node() {
     this->absoluteBounds = NULL;
 	this->setScrollable(false);
 	this->visible = true;
@@ -71,7 +72,8 @@ Element::Element() {
 	this->padding->bottom = 0;
 
 }
-Element::Element(Element *parent) {
+Element::Element(Element *parent) :
+    Node() {
     this->absoluteBounds = NULL;
 	this->setScrollable(false);
 
@@ -213,7 +215,7 @@ void *Element::getAttributeObj(string prop) {
 	return t;
 }
 std::vector<Node *> *Node::getChildNodes() {
-	return &(this->children);
+	return (this->children);
 }
 void Element::Draw(int x, int y, GraphicsContext *c) {
     if (this->absoluteBounds == NULL)

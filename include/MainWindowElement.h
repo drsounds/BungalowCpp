@@ -8,18 +8,19 @@
 namespace spider {
 class MainWindowElement : public VBoxElement
 {
+    private:
+        ViewStackElement *viewStack;
+        TreeViewElement *treeView;
+
     public:
         MainWindowElement();
         MainWindowElement(Element *parent);
         void layout();
         virtual ~MainWindowElement();
         void navigate(string uri);
-    protected:
-    private:
-        ViewStackElement *viewStack;
-        TreeViewElement *treeView;
-
-
+        ViewStackElement *getViewStack() {
+            return this->viewStack;
+        }
 };
 }
 #include "libspider.h"

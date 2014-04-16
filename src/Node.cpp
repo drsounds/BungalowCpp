@@ -6,6 +6,7 @@ namespace spider {
     Node::Node() {
         if(this->window == NULL)
             this->window = this;
+            this->children = new vector<Node *>();
     }
     Node* Node::getParent() {
         return this->parent;

@@ -12,6 +12,9 @@ namespace spider {
 		vector<char *> *fragments;
 	public:
 		Uri(char *uri);
+		char *getUri() {
+            return this->uri;
+		}
 		~Uri();
 	};
 }

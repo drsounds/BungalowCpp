@@ -13,6 +13,11 @@ void treeview_mousedown(SPType *sender, EventArgs *e) {
 		if (args->getY() > top + treeView->getY() && args->getY() < top + treeView->getY() + treeView->getItemHeight()) {
             item->setSelected(true);
 
+            // Raise treeview itemselected event
+            TreeViewEventArgs *eventArgs = new TreeViewEventArgs();
+            eventArgs->setItem(item);
+            treeView->notify(string("itemselected"), treeView, eventArgs);
+
 		} else {
             item->setSelected(false);
 		}

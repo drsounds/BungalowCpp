@@ -14,7 +14,7 @@ class Node : public SPType {
     map<string, string> *attributes;
     Node *pparent;
     Node *window;
-    std::vector<Node *> children;
+    std::vector<Node *> *children;
     Node *parent;
 public:
     Node();

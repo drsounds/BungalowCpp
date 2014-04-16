@@ -22,6 +22,9 @@ namespace spider {
 		void setText(char *text) {
             this->title = text;
 		}
+		Uri *getUri() {
+            return this->uri;
+		}
 		~TreeItem();
 
 	};

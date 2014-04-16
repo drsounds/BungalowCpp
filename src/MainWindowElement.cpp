@@ -4,6 +4,16 @@ namespace spider {
     {
 
     }
+    int treeview_itemselected(SPType *sender, EventArgs *e) {
+        MainWindowElement *mainWindow = (MainWindowElement *)sender;
+        TreeViewEventArgs *args = (TreeViewEventArgs *)e;
+        TreeItem *selectedItem = args->getItem();
+        Uri *uri = selectedItem->getUri();
+        char *uri2 = uri->getUri();
+        string uri3 (uri2);
+        mainWindow->getViewStack()->navigate(uri3);
+        return 0;
+    }
     MainWindowElement::MainWindowElement(Element *parent) : VBoxElement(parent)
     {
 
@@ -48,18 +58,19 @@ namespace spider {
 
         // Add sample elements
         for (int i = 0; i < 3; i++) {
-            TreeItem *item = new TreeItem(new Uri("spotify:internal:home"));
+            TreeItem *item = new TreeItem(new Uri("spoyler:internal:start"));
 
             item->setSelected(i == 0);
             treeView->addItem(item);
         }
+        treeView->addEventListener("itemselected", treeview_itemselected);
         // Add viewstack
 
 
 
 
 
-        spider::ViewStackElement *viewStack = new spider::ViewStackElement(body);
+        this->viewStack = new spider::ViewStackElement(body);
         viewStack->set("bgcolor", "#373737");
         body->appendChild(viewStack);
         viewStack->set("flex", "1");
@@ -69,10 +80,6 @@ namespace spider {
         this->appendChild(footer);
         // Add header buttons
 
-        spider::ButtonElement *btn = new spider::ButtonElement(header);
-        btn->set("width", "320");
-        btn->setInnerText("T");
-        header->appendChild(btn);
 
         this->pack();
     }
