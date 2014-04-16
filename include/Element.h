@@ -25,14 +25,28 @@ namespace spider {
         FontStyle *font;
         char *id;
         char *data;
+        Element *windowElement;
+        rectangle *absoluteBounds;
     public:
         void set(const string& title, const string& val);
         virtual void Draw(int x, int y, GraphicsContext *c);
         string getType() {
             return "Element";
         }
+        rectangle *getAbsoluteBounds() {
+            return this->absoluteBounds;
+        }
+        void setAbsoluteBounds(rectangle *absoluteBounds) {
+            this->absoluteBounds = absoluteBounds;
+        }
         bool isVisible() {
             return this->visible;
+        }
+        Element *getWindowElement() {
+            return this->windowElement;
+        }
+        void setWindowElement(Element *windowElement) {
+            this->windowElement = windowElement;
         }
         void setVisible(bool visible) {
             this->visible = visible;

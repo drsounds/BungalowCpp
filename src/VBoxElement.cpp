@@ -14,7 +14,10 @@ namespace spider {
         int side = -1;
         // First calculate count of flex
         for(std::vector<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
+
             Element *child = static_cast<Element *>(*it);
+            if (!child->isVisible())
+                continue;
             if(child->hasAttribute("flex")) {
                 flexes++;
                 side = 0;
@@ -35,6 +38,8 @@ namespace spider {
         float flex = 1;
         for(std::vector<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
             Element *child = (Element *)*it;
+             if (!child->isVisible())
+                continue;
             if(child->hasAttribute("flex")) {
         //		child->setWidth((flex / flexes) * flexWidth);
             //	flex = (int)child->getAttribute("flex");
@@ -50,6 +55,8 @@ namespace spider {
         side = -1;
         for(std::vector<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
             Element *child = (Element *)*it;
+            if (!child->isVisible())
+                continue;
             if(child->hasAttribute("flex")) {
 
                 side = 0;
@@ -88,8 +95,10 @@ namespace spider {
 
 
         // Pack child elements
-            for(std::vector<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
+        for(std::vector<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
             Element *child = (Element *)*it;
+            if (!child->isVisible())
+                continue;
             child->pack();
         }
 

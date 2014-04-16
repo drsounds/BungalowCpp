@@ -126,7 +126,7 @@ LRESULT CALLBACK WindowProcedure (HWND hWnd, UINT message, WPARAM wParam, LPARAM
 		memDC = CreateCompatibleDC(hdc);
 		btp = CreateCompatibleBitmap(hdc, clientRect.right, clientRect.bottom);
 		t = SelectObject(memDC, btp);
-		gc2 = new Win32GraphicsContext(memDC);
+		gc2 = new Win32GraphicsContext(hWnd, memDC);
 
 
 		window->Draw(gc2);

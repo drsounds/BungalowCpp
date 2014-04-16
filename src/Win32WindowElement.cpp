@@ -1,8 +1,8 @@
 #include <Windows.h>
 #include "Win32WindowElement.h"
-
-using namespace spider;
-void Win32WindowElement::Draw(spider::GraphicsContext *graphics) {
+#include "Win32GraphicsContext.h"
+namespace spider {
+void Win32WindowElement::Draw(GraphicsContext *graphics) {
 	std::vector<Node *> *elements = this->getChildNodes();
 	for (std::vector<Node *>::iterator it = elements->begin(); it != elements->end(); ++it) {
 		Node *node = (Node *)*it;
@@ -10,6 +10,13 @@ void Win32WindowElement::Draw(spider::GraphicsContext *graphics) {
 		if (elm->isVisible())
             elm->Draw(0, 0, graphics);
 	}
+}
+void Win32WindowElement::invalidateRegion(rectangle rect) {
+
+    Win32GraphicsContext *gc = new Win32GraphicsContext(this->hWnd, NULL);
+    gc->invalidateRegion(rect);
+    SendMessage(this->hWnd, WM_PAINT, NULL, NULL);
+    delete gc;
 }
 Win32WindowElement::Win32WindowElement() {
 
@@ -40,9 +47,10 @@ void sample_click(spider::Element *elm, void *data) {
 void Win32WindowElement::SampleLayout() {
     this->set("bgcolor", "#474747");
     this->mainWindow = new MainWindowElement(this);
+    this->mainWindow->setWindowElement((WindowElement *)this);
     this->mainWindow->setVisible(true);
+    this->mainWindow->layout();
     this->appendChild(mainWindow);
 }
-
+}
 /*  This function is called by the Windows function DispatchMessage()  */
-

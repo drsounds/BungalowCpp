@@ -5,7 +5,9 @@ spider::ButtonElement::ButtonElement()
 
 	this->set("bgcolor", "#eeeeee");
 }
-void spider::ButtonElement::Draw(int x, int y, spider::GraphicsContext *c) {
+void spider::ButtonElement::Draw(int x, int y, spider::GraphicsContext *c)
+{
+    spider::Element::Draw(x, y, c);
     if(this->getInnerText() != NULL) {
         spider::FontStyle *fontStyle = new FontStyle("Tahoma", 11, false, false, false);
 		char *text = this->getInnerText();

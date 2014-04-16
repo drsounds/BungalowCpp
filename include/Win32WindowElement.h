@@ -14,6 +14,7 @@ namespace spider {
 		HWND hWnd;
         MainWindowElement *mainWindow;
 	public:
+	    void invalidateRegion(rectangle rect);
         MainWindowElement *getMainWindow() {
             return this->mainWindow;
         }

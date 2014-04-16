@@ -13,9 +13,10 @@ void Win32GraphicsContext::setClip(rectangle rect) {
 
     SelectClipRgn(this->hDC, region);
 }
-Win32GraphicsContext::Win32GraphicsContext(HDC hDC) {
+Win32GraphicsContext::Win32GraphicsContext(HWND hWnd, HDC hDC) {
 	this->hDC = hDC;
 	this->controls = new map<string, HWND>();
+	this->hWnd = hWnd;
 }
 Win32GraphicsContext::~Win32GraphicsContext() {
 
@@ -29,7 +30,14 @@ void Win32GraphicsContext::drawLine(int x1, int y1, int x2, int y2, Color *color
 }
 
 
-
+void Win32GraphicsContext::invalidateRegion(spider::rectangle rect) {
+    LPRECT rgn;
+    rgn->left = rect.x;
+    rgn->right = rect.width + rect.x;
+    rgn->bottom = rect.y + rect.height;
+    rgn->top = rect.y;
+    InvalidateRect(this->hWnd, rgn, TRUE);
+}
 void Win32GraphicsContext::drawRectangle(int x1, int y1, int x2, int y2, Color *color) {
 	HPEN hpen = CreatePen(PS_SOLID, 3, (RGB(255, 0, 0)));
 	HGDIOBJ old = SelectObject(this->hDC, hpen);

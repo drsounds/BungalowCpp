@@ -2,13 +2,17 @@
 namespace spider {
 
 void Element::mouseDown(int& mouseButton, int& x, int& y) {
-	MouseEventArgs *me = new MouseEventArgs(mouseButton, x, y);
+    int xx = this->getAbsoluteBounds() != NULL ? x - this->getAbsoluteBounds()->y : x;
+    int yy = this->getAbsoluteBounds() != NULL ? y - this->getAbsoluteBounds()->y : y;
+	MouseEventArgs *me = new MouseEventArgs(mouseButton, xx, yy);
 
 	this->notify(string("mousedown"), this, me);
 }
 
 void Element::mouseClick(int& mouseButton, int& x, int& y) {
-	MouseEventArgs *me = new MouseEventArgs(mouseButton, x, y);
+    int xx = this->getAbsoluteBounds() != NULL ? x - this->getAbsoluteBounds()->y : x;
+    int yy = this->getAbsoluteBounds() != NULL ? y - this->getAbsoluteBounds()->y : y;
+	MouseEventArgs *me = new MouseEventArgs(mouseButton, xx, yy);
 
 	this->notify(string("click"), this, me);
 }
@@ -20,7 +24,7 @@ void Element::click(int mouseButton, int x, int y) {
 		if(x > elm->x && x < elm->x + elm->getWidth() &&
 			y > elm->y && y < elm->y + elm->getHeight()) {
 
-			elm->click(mouseButton, elm->x + x , elm->y + y);
+			elm->click(mouseButton, x , y);
 		}
 	}
 }
@@ -32,13 +36,15 @@ void Element::mousedown(int mouseButton, int x, int y) {
 		if(x > elm->x && x < elm->x + elm->getWidth() &&
 			y > elm->y && y < elm->y + elm->getHeight()) {
 
-			elm->mousedown(mouseButton, elm->x + x , elm->y + y);
+			elm->mousedown(mouseButton, x, y);
 		}
 	}
 }
 
 Element::Element() {
+    this->absoluteBounds = NULL;
 	this->setScrollable(false);
+	this->visible = true;
 	this->scrollX = 0;
 	this->scrollY = 0;
     this->data = NULL;
@@ -66,7 +72,10 @@ Element::Element() {
 
 }
 Element::Element(Element *parent) {
+    this->absoluteBounds = NULL;
 	this->setScrollable(false);
+
+	this->visible = true;
 	this->scrollX = 0;
 	this->scrollY = 0;
     this->data = NULL;
@@ -207,7 +216,13 @@ std::vector<Node *> *Node::getChildNodes() {
 	return &(this->children);
 }
 void Element::Draw(int x, int y, GraphicsContext *c) {
+    if (this->absoluteBounds == NULL)
+    this->absoluteBounds = new rectangle;
 
+    this->absoluteBounds->x = x;
+    this->absoluteBounds->y = y;
+    this->absoluteBounds->width = this->getWidth();
+    this->absoluteBounds->height = this->getHeight();
 	spider_position pos;
 	std::vector<Node *> *children = this->getChildNodes();
 	x += this->getX();

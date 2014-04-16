@@ -18,6 +18,7 @@ namespace spider {
 		virtual void drawImage(Image *image, int x, int y, int w, int h) {}
 		virtual void drawControl(int x, int y, int w, int h, char *name) {}
 		virtual void drawString(char *text, FontStyle *fs, Color *color, int x, int y, int w, int h) {}
+		virtual void invalidateRegion(rectangle region) {}
 		virtual rectangle measureString(char *text, spider::FontStyle *font) {}
 		void setFontStyle(spider::FontStyle *fs) {
 			this->fontStyle = fs;

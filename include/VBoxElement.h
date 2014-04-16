@@ -1,11 +1,11 @@
 #ifndef VBOXELEMENT_H
 #define VBOXELEMENT_H
-#include "Element.h"
+#include "BoxElement.h"
 namespace spider {
-    class VBoxElement : public Element {
+    class VBoxElement : public BoxElement {
 
 	public:
-	    VBoxElement(Element *parent) : Element(parent) {
+	    VBoxElement(Element *parent) : BoxElement(parent) {
 		}
 		VBoxElement();
 

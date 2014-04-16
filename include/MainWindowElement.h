@@ -11,6 +11,7 @@ class MainWindowElement : public VBoxElement
     public:
         MainWindowElement();
         MainWindowElement(Element *parent);
+        void layout();
         virtual ~MainWindowElement();
         void navigate(string uri);
     protected:

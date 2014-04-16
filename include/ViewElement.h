@@ -1,7 +1,7 @@
 #ifndef VIEWELEMENT_H
 #define VIEWELEMENT_H
 
-
+namespace spider {
 class ViewElement
 {
     public:
@@ -10,5 +10,5 @@ class ViewElement
     protected:
     private:
 };
-
+}
 #endif // VIEWELEMENT_H

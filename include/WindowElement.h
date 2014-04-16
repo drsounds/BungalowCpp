@@ -8,6 +8,7 @@ namespace spider {
 	public:
 		void Draw(spider::GraphicsContext *gs);
 		WindowElement();
+		virtual void invalidateRegion(rectangle rect) {}
 
 	};
 
