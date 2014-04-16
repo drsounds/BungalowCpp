@@ -3,6 +3,7 @@
 #include "Node.h"
 #include "Observer.h"
 #include "FontStyle.h"
+#include "MouseEventArgs.h"
 #include "GraphicsContext.h"
 namespace spider {
     class Element : public Node {
@@ -12,6 +13,9 @@ namespace spider {
         int x;
         int y;
         int z;
+        int scrollX;
+        int scrollY;
+        bool scrollable;
         bool visible;
         margin *margins;
         margin *padding;
@@ -19,8 +23,8 @@ namespace spider {
         map<string, void *> *properties;
         map<string, string> *attributes;
         FontStyle *font;
-        string *id;
-        string *data;
+        char *id;
+        char *data;
     public:
         void set(const string& title, const string& val);
         virtual void Draw(int x, int y, GraphicsContext *c);
@@ -33,8 +37,25 @@ namespace spider {
         void setVisible(bool visible) {
             this->visible = visible;
         }
-
-        void notify(string evt, void *data);
+        bool isScrollable() {
+            return this->scrollable;
+        }
+        void setScrollable(bool scrollable) {
+            this->scrollable = scrollable;
+        }
+        int getScrollX() {
+            return this->scrollX;
+        }
+        int getScrollY() {
+            return this->scrollY;
+        }
+        void setScrollX(int x) {
+            this->scrollX = x;
+        }
+        void setScrollY(int y) {
+            this->scrollY = y;
+        }
+        void notify(string evt, SPType *sender, EventArgs *data);
         FontStyle *getFont() {
             return this->font;
         }
@@ -47,12 +68,14 @@ namespace spider {
         int getX();
         margin *getMargins();
         margin *getPadding();
-        string *getInnerText();
-        void setInnerText(string *data);
+        char *getInnerText();
+        void setInnerText(char *data);
         void addEventListener(string evt, s_event callback);
         void mouseMove(int& x, int& y);
         void mouseClick(int& mouseButton, int& x, int& y);
+        void mouseDown(int& mouseButton, int& x, int& y);
         void click(int mouseButton, int x, int y);
+        void mousedown(int mouseButton, int x, int y);
         int getY();
         int getWidth();
         int getHeight();
@@ -67,8 +90,8 @@ namespace spider {
         string *getAttribute(string title);
         void *getAttributeObj(string title);
         void setAttribute(string attribute, string value);
-        string *getId();
-        void setId(string *id);
+        char *getId();
+        void setId(char *id);
         virtual void pack() {}
 
     };

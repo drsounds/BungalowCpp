@@ -11,6 +11,8 @@
 #include <iomanip>
 #define DEBUG
 #define CONTROL_INPUT 1
+#include "SPType.h"
+#include "EventArgs.h"
 using namespace std;
 
 namespace spider {
@@ -31,8 +33,8 @@ namespace spider {
 		int x;
 		int y;
 		int z;
-	} s_size;
+	} s_size, rectangle;
 
-	typedef int(*s_event)(void *, void *);
+	typedef int(*s_event)(SPType *, EventArgs *);
 }
 #endif

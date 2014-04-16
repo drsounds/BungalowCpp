@@ -7,9 +7,9 @@ namespace spider {
         int weight;
         bool italic;
         bool underline;
-        string *family;
+        char *family;
     public:
-        FontStyle(string *family, int height, int weight, bool italic, bool underline) {
+        FontStyle(char *family, int height, int weight, bool italic, bool underline) {
             this->family = family;
             this->height = height;
             this->weight = weight;
@@ -28,7 +28,7 @@ namespace spider {
         bool isUnderline() {
             return this->underline;
         }
-        string *getFamily() {
+        char *getFamily() {
             return this->family;
         }
 

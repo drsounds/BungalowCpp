@@ -1,5 +1,5 @@
 #include <Windows.h>
-#include "SpiderWin32WindowElement.h"
+#include "Win32WindowElement.h"
 
 using namespace spider;
 void Win32WindowElement::Draw(spider::GraphicsContext *graphics) {

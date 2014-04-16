@@ -4,13 +4,14 @@
 namespace spider {
     class Uri {
 	private:
-		string *protocol;
-		string *entity;
-		string *id;
+		char *protocol;
+		char *entity;
+		char *id;
+		char *uri;
 
-		vector<string *> *fragments;
+		vector<char *> *fragments;
 	public:
-		Uri(const string& uri);
+		Uri(char *uri);
 		~Uri();
 	};
 }

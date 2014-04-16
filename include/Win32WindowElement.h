@@ -3,7 +3,7 @@
 #define H_SPIDER
 #include <Windows.h>
 #include "MainWindowElement.h"
-#include "SpiderWindowElement.h"
+#include "WindowElement.h"
 #define MAX_LOADSTRING 100
 namespace spider {
 	class Win32WindowElement : public WindowElement {
@@ -24,6 +24,7 @@ namespace spider {
 		void Draw(spider::GraphicsContext *graphics);
 		void Show();
 		void Hide();
+
 		Win32WindowElement();
 		Win32WindowElement(HDC hdc);
 		void SampleLayout();

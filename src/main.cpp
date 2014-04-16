@@ -7,8 +7,8 @@
 #include <tchar.h>
 #include <windows.h>
 #include "libspider.h"
-#include "SpiderWin32WindowElement.h"
-#include "spiderwin32.h"
+#include "Win32WindowElement.h"
+#include "Win32GraphicsContext.h"
 
 
 /*  Declare Windows procedure  */
@@ -83,7 +83,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
 
 LRESULT CALLBACK WindowProcedure (HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-    winspider::Win32GraphicsContext *gc2;
+    Win32GraphicsContext *gc2;
 	int wmId, wmEvent;
 	PAINTSTRUCT ps;
 	HDC hdc;
@@ -105,6 +105,7 @@ LRESULT CALLBACK WindowProcedure (HWND hWnd, UINT message, WPARAM wParam, LPARAM
 		iPosX = LOWORD(lParam);
 		iPosY = HIWORD(lParam);
 		window->click(0, iPosX, iPosY);
+		window->mousedown(0, iPosX, iPosY);
 		break;
 	case WM_COMMAND:
 		wmId    = LOWORD(wParam);
@@ -125,7 +126,7 @@ LRESULT CALLBACK WindowProcedure (HWND hWnd, UINT message, WPARAM wParam, LPARAM
 		memDC = CreateCompatibleDC(hdc);
 		btp = CreateCompatibleBitmap(hdc, clientRect.right, clientRect.bottom);
 		t = SelectObject(memDC, btp);
-		gc2 = new winspider::Win32GraphicsContext(memDC);
+		gc2 = new Win32GraphicsContext(memDC);
 
 
 		window->Draw(gc2);

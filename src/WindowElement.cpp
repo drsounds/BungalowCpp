@@ -1,4 +1,4 @@
-#include "SpiderWindowElement.h"
+#include "WindowElement.h"
 
 spider::WindowElement::WindowElement() {
 

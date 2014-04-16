@@ -8,7 +8,7 @@ namespace spider {
 
 	    }
 		ButtonElement();
-		void Draw(spider::GraphicsContext *c);
+		void Draw(int x, int y, spider::GraphicsContext *c);
 	};
 }
 

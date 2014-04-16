@@ -31,7 +31,7 @@ namespace spider {
         }
 
         if(val.find("#") == 0) {
-            Color *c =new Color(val);;
+            Color *c =new Color(val);
             (*this->properties)[title] = (void *)c;
         }
     }
