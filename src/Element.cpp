@@ -52,10 +52,10 @@ Element::Element() :
     this->data = NULL;
     this->visible = true;
 	this->observers = new list<Observer *>();
-	this->properties = new map<string, void *>();
-	this->attributes = new map<string, string>();
-	this->set("fgcolor", "#000000");
-	this->set("bgcolor", "#555555ff");
+    this->set("fgcolor", new string("#ffffff"));
+    this->set("bgcolor", new string("#000000"));
+    this->set("font", new string("MS Sans Serif"));
+    this->set("size", new string("11"));
 	this->font = new FontStyle("MS Sans Serif", 11, 1, false, false);
 	this->x = 0;
 	this->y = 0;
@@ -85,12 +85,15 @@ Element::Element(Element *parent) :
     this->data = NULL;
 	this->observers = new list<Observer *>();
 	this->setParent(parent);
-	this->properties = new map<string, void *>();
-	this->attributes = new map<string, string>();
-    this->set("fgcolor", "#ffffff");
-    this->set("bgcolor", "#000000");
+    this->set("fgcolor", new string("#ffffff"));
+    this->set("bgcolor", new string("#000000"));
+    this->set("font", new string("MS Sans Serif"));
+    this->set("size", new string("11"));
 	if (this->getParent() != NULL) {
-        this->set("bgcolor", "#474747");
+        this->set("bgcolor", new string(this->getParent()->get("bgcolor")));
+        this->set("fgcolor", new string(this->getParent()->get("fgcolor")));
+        this->set("font", new string(this->getParent()->get("font")));
+        this->set("size", new string(this->getParent()->get("size")));
         this->font = parent->font;
         this->mainWindowElement = parent->getMainWindowElement();
         this->windowElement = parent->getWindowElement();
@@ -176,31 +179,32 @@ void Element::addEventListener(string evt, s_event callback) {
 	this->observers->push_back(observer);
 }
 
+void Element::set(const std::string& title, std::string *val) {
+    int n = 0;
+        (*this->getAttributes())[title] = val;
+    try {
+        int n = boost::lexical_cast<int>(*val);
+        if(title == "width")
+            this->setWidth(n);
+        if(title == "height")
+            this->setHeight(n);
+        if(title == "x")
+            this->setX(n);
+        if(title == "y")
+            this->setY(n);
 
+        (*this->getProperties())[title] = (void *)n;
+    } catch (exception e) {
+        (*this->getProperties())[title] = (void *)val;
+    }
 
-void Element::set(const std::string& title, const std::string& val) {
-	int n = 0;
-	try {
-		int n = boost::lexical_cast<int>(val);
-		if(title == "width")
-			this->setWidth(n);
-		if(title == "height")
-			this->setHeight(n);
-		if(title == "x")
-			this->setX(n);
-		if(title == "y")
-			this->setY(n);
-
-
-		(*this->properties)[title] = (void *)n;
-	} catch (exception e) {
-		(*this->properties)[title] = (void *)&val;
-	}
-
-	if(val.find("#") == 0) {
-		Color *c =new Color(val);;
-		(*this->properties)[title] = (void *)c;
-	}
+    if(val->find("#") == 0) {
+        Color *c =new Color(*val);
+        (*this->getProperties())[title] = (void *)c;
+    }
+}
+ void Element::set(const std::string& title, const std::string value) {
+     this->set(title, new std::string(value));
 }
 
 void Element::setId(char *id) {
@@ -210,24 +214,12 @@ char *Element::getId() {
 	return this->id;
 }
 
-bool Element::hasAttribute(string attr) {
-	map<string, void *>::iterator it = this->properties->find(attr);
-	return it != this->properties->end();
-}
 
 
 
 
 
 
-void *Element::getAttributeObj(string prop) {
-
-		void *t = (void *)(*this->properties)[prop];
-	return t;
-}
-std::list<Node *> *Node::getChildNodes() {
-	return (this->children);
-}
 void Element::Draw(int x, int y, GraphicsContext *c) {
     if (this->absoluteBounds == NULL)
     this->absoluteBounds = new rectangle;
@@ -250,6 +242,9 @@ void Element::Draw(int x, int y, GraphicsContext *c) {
 	rect2.height = height;
     Color *bgColor = (Color *)this->getAttributeObj("bgcolor");
     Color *fgColor = (Color *)this->getAttributeObj("fgcolor");
+    int fontSize = (int)this->getAttributeObj("size");
+    char *fontFamily = (char *)this->getAttributeObj("font");
+
 	c->fillRectangle(x, y, width, height, bgColor);
 	//c->drawRectangle(x, y, this->getWidth(), this->getHeight(), (Color *)this->getAttributeObj("bgcolor"));
 	//Color color(255, 0, 0, 255);
@@ -257,7 +252,7 @@ void Element::Draw(int x, int y, GraphicsContext *c) {
     char *text = this->getInnerText();
     // Draw text
     if (text != NULL)
-        c->drawString(this->getInnerText(), new FontStyle("MS Sans Serif", 8, 4, false, false), fgColor, x, y, 300, 8);
+        c->drawString(this->getInnerText(), new FontStyle(fontFamily, fontSize, fontSize / 2, false, false), fgColor, x, y, 300, 8);
 
 	// adjust for scroll
     x -= this->scrollX;

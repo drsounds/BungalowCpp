@@ -20,8 +20,6 @@ namespace spider {
         margin *margins;
         margin *padding;
         std::list<Observer *> *observers;
-        map<string, void *> *properties;
-        map<string, string> *attributes;
         FontStyle *font;
         char *id;
         char *data;
@@ -30,7 +28,6 @@ namespace spider {
         rectangle *absoluteBounds;
     public:
 
-        void set(const string& title, const string& val);
         virtual void Draw(int x, int y, GraphicsContext *c);
         string getType() {
             return "Element";
@@ -108,11 +105,10 @@ namespace spider {
         void setWidth(int width);
         void setHeight(int height);
         void setZ(int z);
+        void set(const std::string& title, const std::string val);
+        void set(const std::string& title, std::string *val);
 
-        bool hasAttribute(string attrib);
-        string *getAttribute(string title);
-        void *getAttributeObj(string title);
-        void setAttribute(string attribute, string value);
+
         char *getId();
         void setId(char *id);
         virtual void pack() {}

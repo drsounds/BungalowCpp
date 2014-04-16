@@ -65,7 +65,7 @@ namespace spider {
         // Get common attributes
         char *flex = getAttribute("flex", attr, NULL);
         if (flex != NULL) {
-            elm->set(string("flex"), string(flex));
+            elm->set(string("flex"), new string(flex));
 
         }
         p_parent->appendChild(elm);

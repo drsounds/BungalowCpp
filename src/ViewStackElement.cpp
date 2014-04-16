@@ -23,6 +23,7 @@ namespace spider {
         ViewElement *view = NULL;
         std::stack<string *> *history = this->history;
         ViewStackElement *th = this;
+        // Hide all views
 
         if (std::regex_match(uri.c_str(), std::regex("spoyler:internal:start"))) {
 
