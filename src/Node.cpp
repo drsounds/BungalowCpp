@@ -6,7 +6,7 @@ namespace spider {
     Node::Node() {
         if(this->window == NULL)
             this->window = this;
-            this->children = new vector<Node *>();
+            this->children = new list<Node *>();
     }
     Node* Node::getParent() {
         return this->parent;
@@ -38,7 +38,11 @@ namespace spider {
     }
 
     void Node::appendChild(spider::Node *child) {
-        this->getChildNodes()->push_back(child);
+        list<Node *> *nodes = this->children;
+        if (nodes == NULL) {
+            nodes = new list<Node *>();
+        }
+        nodes->push_back(child);
         child->setParent(this);
         child->window = this->getWindowNode();
     }

@@ -18,9 +18,7 @@ class MainWindowElement : public VBoxElement
         void layout();
         virtual ~MainWindowElement();
         void navigate(string uri);
-        ViewStackElement *getViewStack() {
-            return this->viewStack;
-        }
+        ViewStackElement *getViewStack();
 };
 }
 #include "libspider.h"

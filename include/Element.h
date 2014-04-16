@@ -19,15 +19,17 @@ namespace spider {
         bool visible;
         margin *margins;
         margin *padding;
-        std::vector<Observer *> *observers;
+        std::list<Observer *> *observers;
         map<string, void *> *properties;
         map<string, string> *attributes;
         FontStyle *font;
         char *id;
         char *data;
         Element *windowElement;
+        Element *mainWindowElement;
         rectangle *absoluteBounds;
     public:
+
         void set(const string& title, const string& val);
         virtual void Draw(int x, int y, GraphicsContext *c);
         string getType() {
@@ -36,8 +38,15 @@ namespace spider {
         rectangle *getAbsoluteBounds() {
             return this->absoluteBounds;
         }
+        void invalidate();
         void setAbsoluteBounds(rectangle *absoluteBounds) {
             this->absoluteBounds = absoluteBounds;
+        }
+        Element *getMainWindowElement() {
+            return this->mainWindowElement;
+        }
+        void setMainWindowElement(Element* mainWindowElement) {
+            this->mainWindowElement = mainWindowElement;
         }
         bool isVisible() {
             return this->visible;

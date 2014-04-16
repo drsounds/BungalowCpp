@@ -20,13 +20,17 @@ BoxElement::~BoxElement()
  Box Element
 **/
 void BoxElement::pack() {
+	list<Node *> *nodes = this->getChildNodes();
     if (this->getChildNodes()->size() < 1) {
         return;
     }
-	Element *child = static_cast<spider::Element *>(this->getChildNodes()->at(0));
+	Node *elm = (Node *)static_cast<spider::Node *>(*this->getChildNodes()->begin());
+	Element *child = (Element *)elm;
 	child->setX(0);
 	child->setY(0);
 	child->setWidth(this->getWidth());
 	child->setHeight(this->getHeight());
+	child->pack();
+
 };
 }

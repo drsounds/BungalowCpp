@@ -19,14 +19,14 @@ namespace spider {
     };
     class TreeViewElement : public Element {
 	private:
-		vector<TreeItem *> *mItems;
+		list<TreeItem *> *mItems;
 		int itemHeight;
 	public:
 		TreeViewElement(Element *parent)
             ;
 
 		void Draw(int x, int y, GraphicsContext *g);
-        vector<TreeItem *> *items() {
+        list<TreeItem *> *items() {
             return this->mItems;
         }
 		void setItemHeight(int height);

@@ -14,6 +14,7 @@
 				<Compiler>
 					<Add option="-Wfatal-errors" />
 					<Add option="-g" />
+					<Add option="-std=c++11" />
 					<Add directory="C:/Users/Alecca/Downloads/boost_1_55_0/boost_1_55_0" />
 					<Add directory="C:/Program Files (x86)/Expat 2.1.0/Source/lib" />
 					<Add directory="include" />
@@ -52,6 +53,7 @@
 		<Unit filename="include/Element.h" />
 		<Unit filename="include/Entity.h" />
 		<Unit filename="include/EventArgs.h" />
+		<Unit filename="include/FlowElement.h" />
 		<Unit filename="include/FontStyle.h" />
 		<Unit filename="include/GraphicsContext.h" />
 		<Unit filename="include/HBoxElement.h" />
@@ -69,6 +71,7 @@
 		<Unit filename="include/VBoxElement.h" />
 		<Unit filename="include/ViewElement.h" />
 		<Unit filename="include/ViewStackElement.h" />
+		<Unit filename="include/WhatsNewView.h" />
 		<Unit filename="include/Win32GraphicsContext.h" />
 		<Unit filename="include/Win32WindowElement.h" />
 		<Unit filename="include/WindowElement.h" />
@@ -82,6 +85,7 @@
 		<Unit filename="src/Element.cpp" />
 		<Unit filename="src/Entity.cpp" />
 		<Unit filename="src/EventArgs.cpp" />
+		<Unit filename="src/FlowElement.cpp" />
 		<Unit filename="src/FontStyle.cpp" />
 		<Unit filename="src/GraphicsContext.cpp" />
 		<Unit filename="src/HBoxElement.cpp" />
@@ -99,6 +103,7 @@
 		<Unit filename="src/VBoxElement.cpp" />
 		<Unit filename="src/ViewElement.cpp" />
 		<Unit filename="src/ViewStackElement.cpp" />
+		<Unit filename="src/WhatsNewView.cpp" />
 		<Unit filename="src/Win32GraphicsContext.cpp" />
 		<Unit filename="src/Win32WindowElement.cpp" />
 		<Unit filename="src/WindowElement.cpp" />

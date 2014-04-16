@@ -13,7 +13,7 @@ namespace spider {
         int bottomheight = 0;
         int side = -1;
         // First calculate count of flex
-        for(std::vector<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
+        for(std::list<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
 
             Element *child = static_cast<Element *>(*it);
             if (!child->isVisible())
@@ -36,7 +36,7 @@ namespace spider {
 
         int flexHeight = flexes > 0 ?  (this->getHeight() - topheight - bottomheight) / flexes : 0;
         float flex = 1;
-        for(std::vector<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
+        for(std::list<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
             Element *child = (Element *)*it;
              if (!child->isVisible())
                 continue;
@@ -53,7 +53,7 @@ namespace spider {
         int top = 0;
         int bottom = 0;
         side = -1;
-        for(std::vector<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
+        for(std::list<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
             Element *child = (Element *)*it;
             if (!child->isVisible())
                 continue;
@@ -95,7 +95,7 @@ namespace spider {
 
 
         // Pack child elements
-        for(std::vector<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
+        for(std::list<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
             Element *child = (Element *)*it;
             if (!child->isVisible())
                 continue;

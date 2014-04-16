@@ -3,11 +3,11 @@
 #include <map>
 #include <string>
 #include <list>
-#include <vector>
+#include <list>
 #include <boost/lexical_cast.hpp>
 #include <string>
 #include <sstream>
-#include <vector>
+#include <list>
 #include <iomanip>
 #define DEBUG
 #define CONTROL_INPUT 1

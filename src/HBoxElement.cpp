@@ -13,7 +13,7 @@ namespace spider {
         int rightwidth = 0;
         int side = -1;
         // First calculate count of flex
-        for(std::vector<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
+        for(std::list<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
             Element *child = (Element *)*it;
             if(child->hasAttribute("flex")) {
                 flexes++;
@@ -33,7 +33,7 @@ namespace spider {
 
         int flexWidth = flexes > 0 ? (this->getWidth() - leftwidth - rightwidth) / flexes : 0;
         float flex = 1;
-        for(std::vector<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
+        for(std::list<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
             Element *child = (Element *)*it;
             if(child->hasAttribute("flex")) {
         //		child->setWidth((flex / flexes) * flexWidth);
@@ -49,7 +49,7 @@ namespace spider {
         int left = 0;
         int right = 0;
         side = -1;
-        for(std::vector<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
+        for(std::list<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
             Element *child = (Element *)*it;
             if(child->hasAttribute("flex")) {
 
@@ -85,7 +85,7 @@ namespace spider {
 
 
         // Pack child elements
-        for(std::vector<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
+        for(std::list<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
             Element *child = (Element *)*it;
             child->pack();
         }

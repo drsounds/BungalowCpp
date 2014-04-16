@@ -10,6 +10,7 @@ namespace spider {
             ViewElement(Element *parent);
             virtual ~ViewElement();
             virtual void navigate(string uri);
+            void pack();
         protected:
         private:
     };

@@ -9,7 +9,7 @@ namespace spider {
 		char *id;
 		char *uri;
 
-		vector<char *> *fragments;
+		list<char *> *fragments;
 	public:
 		Uri(char *uri);
 		char *getUri() {

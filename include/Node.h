@@ -5,7 +5,7 @@
 #include <boost/lexical_cast.hpp>
 #include <map>
 #include <string>
-#include <vector>
+#include <list>
 using namespace std;
 namespace spider {
 
@@ -14,11 +14,14 @@ class Node : public SPType {
     map<string, string> *attributes;
     Node *pparent;
     Node *window;
-    std::vector<Node *> *children;
+    std::list<Node *> *children;
     Node *parent;
 public:
     Node();
     void appendChild(Node *child);
+    void setChildren(std::list<Node *> *children) {
+        this->children = children;
+    }
     Node *getElementById(string *id);
     void set(const string& attrib, const string& val);
     string get(const string& attrib);
@@ -29,7 +32,7 @@ public:
     Node *getWindowNode();
 
     void setParent(Node *parent);
-    std::vector<Node *> *getChildNodes();
+    std::list<Node *> *getChildNodes();
 };
 }
 #endif // NODE_H

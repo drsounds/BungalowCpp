@@ -1,18 +1,19 @@
 #include "ViewStackElement.h"
 #include "WhatsNewView.h"
 #include <regex>
+#include <list>
 namespace spider {
     ViewStackElement::ViewStackElement()
     : BoxElement::BoxElement() {
-         this->views = new std::list<ViewElement *>;
          this->history = new std::stack<string *>;
          this->future = new std::stack<string *>;
     }
     ViewStackElement::ViewStackElement(Element *parent)
      : BoxElement::BoxElement(parent) {
-         this->views = new std::list<ViewElement *>;
+         this->setParent(this);
          this->history = new std::stack<string *>;
          this->future = new std::stack<string *>;
+        list<Node *> *children = this->getChildNodes();
     }
     /**
      * Main navigation handler inside Spotify
@@ -20,6 +21,9 @@ namespace spider {
     void ViewStackElement::navigate(string uri) {
         // TODO add navigation handler
         ViewElement *view = NULL;
+        std::stack<string *> *history = this->history;
+        ViewStackElement *th = this;
+
         if (std::regex_match(uri.c_str(), std::regex("spoyler:internal:start"))) {
 
             // Show What's new view
@@ -62,10 +66,13 @@ namespace spider {
             // Show error message (The URI could not be found)
             return;
         }
+        list<Node *> *children = this->getChildNodes();
         if (view != NULL) {
             this->appendChild(view);
             view->navigate(uri);
         }
+        this->invalidate();
+
     }
 
 

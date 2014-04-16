@@ -1,4 +1,5 @@
 #include "Element.h"
+#include "WindowElement.h"
 namespace spider {
 
 void Element::mouseDown(int& mouseButton, int& x, int& y) {
@@ -18,7 +19,7 @@ void Element::mouseClick(int& mouseButton, int& x, int& y) {
 }
 void Element::click(int mouseButton, int x, int y) {
 	this->mouseClick(mouseButton, x, y);
-	for(vector<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
+	for(list<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
 		Element *elm = static_cast<Element *>(*it);
 
 		if(x > elm->x && x < elm->x + elm->getWidth() &&
@@ -30,7 +31,7 @@ void Element::click(int mouseButton, int x, int y) {
 }
 void Element::mousedown(int mouseButton, int x, int y) {
 	this->mouseDown(mouseButton, x, y);
-	for(vector<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
+	for(list<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
 		Element *elm = static_cast<Element *>(*it);
 
 		if(x > elm->x && x < elm->x + elm->getWidth() &&
@@ -50,9 +51,10 @@ Element::Element() :
 	this->scrollY = 0;
     this->data = NULL;
     this->visible = true;
-	this->observers = new vector<Observer *>();
+	this->observers = new list<Observer *>();
 	this->properties = new map<string, void *>();
 	this->attributes = new map<string, string>();
+	this->set("fgcolor", "#000000");
 	this->set("bgcolor", "#555555ff");
 	this->font = new FontStyle("MS Sans Serif", 11, 1, false, false);
 	this->x = 0;
@@ -81,13 +83,17 @@ Element::Element(Element *parent) :
 	this->scrollX = 0;
 	this->scrollY = 0;
     this->data = NULL;
-	this->observers = new vector<Observer *>();
+	this->observers = new list<Observer *>();
 	this->setParent(parent);
 	this->properties = new map<string, void *>();
 	this->attributes = new map<string, string>();
+    this->set("fgcolor", "#ffffff");
+    this->set("bgcolor", "#000000");
 	if (this->getParent() != NULL) {
         this->set("bgcolor", "#474747");
         this->font = parent->font;
+        this->mainWindowElement = parent->getMainWindowElement();
+        this->windowElement = parent->getWindowElement();
 	}
 	this->x = 0;
 	this->y = 0;
@@ -105,6 +111,11 @@ Element::Element(Element *parent) :
 	this->padding->right = 0;
 	this->padding->bottom = 0;
 
+}
+void Element::invalidate() {
+    rectangle *rect = this->getAbsoluteBounds();
+    WindowElement *we = (WindowElement *)this->getWindowElement();
+    we->invalidateRegion(*rect);
 }
 margin *Element::getMargins() {
 	return this->margins;
@@ -149,12 +160,12 @@ void Element::setZ(int z) {
 	this->z = z;
 }
 void Element::notify(string evt, SPType *sender, EventArgs *data) {
-	for(vector<Observer *>::iterator it = this->observers->begin(); it != this->observers->end(); ++it) {
+	for(list<Observer *>::iterator it = this->observers->begin(); it != this->observers->end(); ++it) {
 		Observer *observer = static_cast<Observer *>(*it);
 		string t = observer->getEvent();
 		if(t == (evt)) {
 			s_event evt = (observer->getCallback());
-			evt(this, data);
+			evt(sender, data);
 		}
 	}
 }
@@ -214,7 +225,7 @@ void *Element::getAttributeObj(string prop) {
 		void *t = (void *)(*this->properties)[prop];
 	return t;
 }
-std::vector<Node *> *Node::getChildNodes() {
+std::list<Node *> *Node::getChildNodes() {
 	return (this->children);
 }
 void Element::Draw(int x, int y, GraphicsContext *c) {
@@ -226,7 +237,7 @@ void Element::Draw(int x, int y, GraphicsContext *c) {
     this->absoluteBounds->width = this->getWidth();
     this->absoluteBounds->height = this->getHeight();
 	spider_position pos;
-	std::vector<Node *> *children = this->getChildNodes();
+	std::list<Node *> *children = this->getChildNodes();
 	x += this->getX();
 	y += this->getY();
 	int width =  this->getWidth();
@@ -237,20 +248,21 @@ void Element::Draw(int x, int y, GraphicsContext *c) {
 	rect2.y = 0;
 	rect2.width = width;
 	rect2.height = height;
-
-	c->fillRectangle(x, y, width, height, (Color *)this->getAttributeObj("bgcolor"));
+    Color *bgColor = (Color *)this->getAttributeObj("bgcolor");
+    Color *fgColor = (Color *)this->getAttributeObj("fgcolor");
+	c->fillRectangle(x, y, width, height, bgColor);
 	//c->drawRectangle(x, y, this->getWidth(), this->getHeight(), (Color *)this->getAttributeObj("bgcolor"));
 	//Color color(255, 0, 0, 255);
     //	c->drawRectangle(0, 0, this->getWidth(), this->getHeight() , &color);
     char *text = this->getInnerText();
     // Draw text
     if (text != NULL)
-        c->drawString(this->getInnerText(), new FontStyle("MS Sans Serif", 8, 4, false, false), new Color(255, 255, 255, 255), x, y, 300, 8);
+        c->drawString(this->getInnerText(), new FontStyle("MS Sans Serif", 8, 4, false, false), fgColor, x, y, 300, 8);
 
 	// adjust for scroll
     x -= this->scrollX;
     y -= this->scrollY;
-	for(std::vector<Node *>::iterator it = children->begin(); it != children->end(); ++it) {
+	for(std::list<Node *>::iterator it = children->begin(); it != children->end(); ++it) {
 		Element *elm = static_cast<Element *>(*it);
 		if(elm != NULL) {
 			elm->Draw(x, y, c);

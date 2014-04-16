@@ -5,7 +5,8 @@ namespace spider {
 
     }
     int treeview_itemselected(SPType *sender, EventArgs *e) {
-        MainWindowElement *mainWindow = (MainWindowElement *)sender;
+        TreeViewElement *treeView = (TreeViewElement *)sender;
+        MainWindowElement *mainWindow = (MainWindowElement *)treeView->getMainWindowElement();
         TreeViewEventArgs *args = (TreeViewEventArgs *)e;
         TreeItem *selectedItem = args->getItem();
         Uri *uri = selectedItem->getUri();
@@ -20,7 +21,10 @@ namespace spider {
 
     }
     void MainWindowElement::layout() {
-        spider::HBoxElement *header = new spider::HBoxElement();
+        this->setMainWindowElement(this);
+        this->setWindowElement(this->getWindowElement());
+        this->set("bgcolor", "#373737");
+        spider::HBoxElement *header = new spider::HBoxElement(this);
         header->set("bgcolor", "#767676");
         header->set("height", "56");
         header->getPadding()->top = 3;
@@ -48,14 +52,14 @@ namespace spider {
 
         // Add TreeView
         this->treeView = new TreeViewElement(sidebar);
-        treeView->set("bgcolor", "#666666");
+        treeView->set("bgcolor", "#575757");
         treeView->set("fgcolor", "#dddddd");
         treeView->set("flex", "1");
         treeView->set("height", "920");
         treeView->set("width", "220");
         sidebar->appendChild(treeView);
         treeView->setWindowElement(this->getWindowElement());
-
+        treeView->setMainWindowElement(this);
         // Add sample elements
         for (int i = 0; i < 3; i++) {
             TreeItem *item = new TreeItem(new Uri("spoyler:internal:start"));
@@ -74,7 +78,7 @@ namespace spider {
         viewStack->set("bgcolor", "#373737");
         body->appendChild(viewStack);
         viewStack->set("flex", "1");
-        spider::HBoxElement *footer = new spider::HBoxElement();
+        spider::HBoxElement *footer = new spider::HBoxElement(this);
         footer->set("bgcolor", "#444444");
         footer->set("height", "86");
         this->appendChild(footer);
@@ -83,7 +87,9 @@ namespace spider {
 
         this->pack();
     }
-
+    ViewStackElement *MainWindowElement::getViewStack() {
+        return this->viewStack;
+    }
     MainWindowElement::~MainWindowElement()
     {
         //dtor

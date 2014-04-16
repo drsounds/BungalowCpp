@@ -8,13 +8,13 @@ namespace spider {
     private:
         std::stack<string *> *history;
         std::stack<string *> *future;
-        std::list<ViewElement *> *views;
 
     public:
         ViewStackElement();
         ViewStackElement(Element *parent);
         void registerView(ViewElement *view);
         void navigate(string uri);
+
     };
 }
 #endif // VIEWSTACKELEMENT_H
