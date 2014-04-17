@@ -11,7 +11,6 @@ class MainWindowElement : public VBoxElement
     private:
         ViewStackElement *viewStack;
         TreeViewElement *treeView;
-
     public:
         MainWindowElement();
         MainWindowElement(Element *parent);

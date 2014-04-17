@@ -1,9 +1,9 @@
 #ifndef VIEWELEMENT_H
 #define VIEWELEMENT_H
-#include "FlowElement.h"
+#include "VBoxElement.h"
 #include "Uri.h"
 namespace spider {
-    class ViewElement : public FlowElement
+    class ViewElement : public VBoxElement
     {
         public:
             ViewElement();

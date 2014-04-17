@@ -20,7 +20,7 @@ BoxElement::~BoxElement()
  Box Element
 **/
 void BoxElement::pack() {
-	list<Node *> *nodes = this->getChildNodes();
+	vector<Node *> *nodes = this->getChildNodes();
     if (this->getChildNodes()->size() < 1) {
         return;
     }

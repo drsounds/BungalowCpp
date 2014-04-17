@@ -18,12 +18,11 @@ namespace spider {
     }
     MainWindowElement::MainWindowElement(Element *parent) : VBoxElement(parent)
     {
-
+        this->setWindowElement(parent);
 
     }
     void MainWindowElement::layout() {
         this->setMainWindowElement(this);
-        this->setWindowElement(this->getWindowElement());
         this->set("bgcolor", "#373737");
         spider::HBoxElement *header = new spider::HBoxElement(this);
         header->set("bgcolor", "#767676");
@@ -82,7 +81,7 @@ namespace spider {
         viewStack->set("bgcolor", "#373737");
         body->appendChild(viewStack);
         viewStack->set("flex", "1");
-
+        viewStack->setWindowElement(this->getWindowElement());
         viewStack->appendChild(new spider::views::StartView(this));
         spider::HBoxElement *footer = new spider::HBoxElement(this);
         footer->set("bgcolor", "#444444");

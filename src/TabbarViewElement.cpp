@@ -1,8 +1,18 @@
 #include "TabbarViewElement.h"
 namespace spider {
+    int tabbar_tabselected(SPType *sender, EventArgs *e) {
+        TabBarEventArgs *args = (TabBarEventArgs *)e;
+        string uri = *args->tab->getUri();
+        TabBarElement *tabView = (TabBarElement *)sender;
+        TabbarViewElement *tabbarView = (TabbarViewElement *)tabView->parent;
+        tabbarView->navigate(uri);
+    }
     TabbarViewElement::TabbarViewElement()
      : ViewElement() {
 
+    }
+    void TabbarViewElement::mousedown(int mouseButton, int x, int y) {
+        Element::mousedown(mouseButton, x, y);
     }
     TabbarViewElement::TabbarViewElement(Element *parent)
      : ViewElement::ViewElement(parent)
@@ -13,6 +23,7 @@ namespace spider {
         this->appendChild(this->tabBar);
         this->tabBar->setHeight(28);
         this->tabBar->set("height", "28");
+        this->tabBar->addEventListener(string("tabselected"), &tabbar_tabselected);
         this->viewStack->set("flex", "1");
         this->appendChild(this->viewStack);
     }

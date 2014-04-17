@@ -14,6 +14,7 @@ class TabbarViewElement : public ViewElement
         virtual ~TabbarViewElement();
         virtual void navigate(string uri);
         virtual bool acceptsUri(string uri);
+        void mousedown(int mouseButton, int x, int y);
     protected:
         ViewStackElement *viewStack;
         TabBarElement *tabBar;

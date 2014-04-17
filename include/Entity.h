@@ -1,6 +1,6 @@
 #ifndef ENTITY_H
 #define ENTITY_H
-#include <list>
+#include <vector>
 using namespace std;
 typedef int (*entify_promise_callback)(void *sender, void *data);
 namespace Entify {
@@ -14,7 +14,7 @@ class Promise;
 class Entity
 {
     private:
-        list<Resolver *> *resolvers;
+        vector<Resolver *> *resolvers;
     public:
             /**
              * Creates a new instance of Entity

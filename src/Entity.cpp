@@ -2,7 +2,7 @@
 
 Entify::Entity::Entity()
 {
-    this->resolvers = new list<Resolver *>();
+    this->resolvers = new vector<Resolver *>();
 }
 void Entify::Entity::registerResolver(Resolver *resolver) {
     this->resolvers->push_back(resolver);

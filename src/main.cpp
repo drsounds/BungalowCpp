@@ -95,16 +95,19 @@ LRESULT CALLBACK WindowProcedure (HWND hWnd, UINT message, WPARAM wParam, LPARAM
 	int iPosX, iPosY;
 	GetClientRect(hWnd,&clientRect);
     window->setHandle(hWnd);
+    iPosX = LOWORD(lParam);
+    iPosY = HIWORD(lParam);
 	switch (message)
 	{
 	case WM_SIZE:
 	    InvalidateRect(hWnd, &clientRect, TRUE);
 		window->pack();
 		break;
-	case WM_LBUTTONDOWN:
-		iPosX = LOWORD(lParam);
-		iPosY = HIWORD(lParam);
+    case WM_LBUTTONUP:
+
 		window->click(0, iPosX, iPosY);
+		break;
+	case WM_LBUTTONDOWN:
 		window->mousedown(0, iPosX, iPosY);
 		break;
 	case WM_COMMAND:

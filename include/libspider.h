@@ -2,12 +2,12 @@
 #define H_LIBSPIDER
 #include <map>
 #include <string>
-#include <list>
-#include <list>
+#include <vector>
+#include <vector>
 #include <boost/lexical_cast.hpp>
 #include <string>
 #include <sstream>
-#include <list>
+#include <vector>
 #include <iomanip>
 #define DEBUG
 #define CONTROL_INPUT 1

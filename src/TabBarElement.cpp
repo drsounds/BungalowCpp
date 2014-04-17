@@ -7,6 +7,35 @@ Tab::Tab(TabBarElement *tabBar, string *name, string *id, string *uri) {
     this->id = id;
     this->uri = uri;
 }
+
+int tabbar_mousedown(SPType *sender, EventArgs *e) {
+    TabBarElement *tabBar = (TabBarElement *)sender;
+    MouseEventArgs *me = (MouseEventArgs *)e;
+    int x = tabBar->getAbsoluteBounds() != NULL ? me->getX() - tabBar->getAbsoluteBounds()->y : me->getX();
+    int y = tabBar->getAbsoluteBounds() != NULL ? me->getY() - tabBar->getAbsoluteBounds()->y : me->getY();
+    int left = 0;
+    ;
+    for(std::vector<Tab *>::iterator it = tabBar->tabs->begin(); it != tabBar->tabs->end(); ++it) {
+        Tab *tab = (Tab *)dynamic_cast<Tab *>(*it);
+        string *title = tab->getName();
+        string *id = tab->getId();
+        string *uri = tab->getUri();
+        FontStyle *font = (FontStyle *)tabBar->getAttributeObj("font");
+        GraphicsContext *g = tabBar->createGraphics();
+        rectangle strSize = g->measureString((char *)title->c_str(), font);
+        int width = 20 + strSize.width + 20;
+        if (x > left && x < left + width) {
+            tabBar->activeTab = tab;
+            TabBarEventArgs *args = new TabBarEventArgs(tab);
+            tabBar->notify(string("tabselected"), (SPType *)tabBar, (EventArgs *)args);
+
+        }
+
+        left += width;
+    }
+    tabBar->invalidate();
+}
+
 void TabBarElement::addTab(string *id, string *name, string *uri) {
     Tab *tab = new Tab(this, id, name, uri);
     this->tabs->push_back(tab);
@@ -19,51 +48,71 @@ TabBarEventArgs::TabBarEventArgs(Tab *tab) {
     this->tab = tab;
 }
 
-void TabBarElement::mousedown(int mouseButton, int x, int y) {
-    int left = 0;
-    std::list<Tab *>::iterator it = this->tabs->begin();
-    do {
-        Tab *tab = (Tab *)static_cast<Tab *>(*it);
-        string *title = tab->name;
-        string *id = tab->id;
-        string *uri = tab->uri;
-        FontStyle *font = (FontStyle *)this->getAttributeObj("font");
-        GraphicsContext *g = this->createGraphics();
-        rectangle strSize = g->measureString((char *)title->c_str(), font);
-        int with = 20 + strSize.width + 20;
-        if (x > left && x < left + width) {
-            this->activeTab = tab;
-            TabBarEventArgs *args = new TabBarEventArgs(tab);
-            this->notify(string("tabselected"), (SPType *)this, (EventArgs *)args);
-        }
-        left += width;
-        ++it;
-    } while (it != this->tabs->end());
-    this->invalidate();
-}
 TabBarElement::TabBarElement()
  : Element()
 {
     //ctor
-    this->tabs = new std::list<Tab *>;
+    this->tabs = new std::vector<Tab *>;
     this->set("active_tab_fgcolor", "#ffffff");
     this->set("active_tab_bgcolor", "#474747");
+    this->addEventListener(string("mousedown"), &tabbar_mousedown);
 
 }
 TabBarElement::TabBarElement(Element *parent)
  : Element(parent)
 {
     //ctor
-    this->tabs = new std::list<Tab *>;
+    this->tabs = new std::vector<Tab *>;
     this->set("active_tab_fgcolor", "#ffffff");
     this->set("active_tab_bgcolor", "#474747");
     this->set("bgcolor", "#565656");
+    this->addEventListener(string("mousedown"), (s_event)&tabbar_mousedown);
+    std::vector<Observer *> *observers = this->observers;
+    int count = observers->size();
+    if (count < 1)
+        {
+        int f = 0;
+    }
+
 
 }
+void TabBarElement::mousedown(int mouseButton, int x, int y) {
+    TabBarElement *tabBar = this;
+    x = tabBar->getAbsoluteBounds() != NULL ? x - tabBar->getAbsoluteBounds()->x : x;
+    y = tabBar->getAbsoluteBounds() != NULL ? y - tabBar->getAbsoluteBounds()->y : y;
+    FontStyle *font = (FontStyle *)tabBar->getAttributeObj("font");
+    int left = 0;
+    for(std::vector<Tab *>::iterator it = tabBar->getTabs()->begin(); it != tabBar->getTabs()->end(); ++it) {
+        Tab *tab = (Tab *)static_cast<Tab *>(*it);
+        string *title = tab->getName();
+        string *id = tab->getId();
+        string *uri = tab->getUri();
+        GraphicsContext *g = tabBar->createGraphics();
+        rectangle strSize = g->measureString((char *)title->c_str(), font);
+        int width = 20 + 100 + 20;
+        if (x > left  && x < left + width) {
+            tabBar->activeTab = tab;
+            TabBarEventArgs *args = new TabBarEventArgs(tab);
+            tabBar->notify(string("tabselected"), (SPType *)tabBar, (EventArgs *)args);
+        cout << title->c_str();
+            break;
+        }
+
+        left += width;
+    }
+    tabBar->invalidate();
+}
 void TabBarElement::Draw(int x, int y, GraphicsContext *g) {
+    if (this->absoluteBounds == NULL)
+        this->absoluteBounds = new rectangle;
+
+    this->absoluteBounds->x = x;
+    this->absoluteBounds->y = y;
+    this->absoluteBounds->width = this->getWidth();
+    this->absoluteBounds->height = this->getHeight();
     g->fillRectangle(x, y, this->getWidth(), this->getHeight(), (Color *)this->getAttributeObj("bgcolor"));
     int left = 0;
-    std::list<Tab *>::iterator it = this->tabs->begin();
+    std::vector<Tab *>::iterator it = this->getTabs()->begin();
     do {
         Color *fgColor = (Color *)this->getAttributeObj("fgcolor");
 
@@ -72,7 +121,7 @@ void TabBarElement::Draw(int x, int y, GraphicsContext *g) {
         string *title = tab->getName();
         string *id = tab->getId();
         rectangle strSize = g->measureString((char *)title->c_str(), font);
-        int width = 20 + strSize.width + 20;
+        int width = 20 + 100 + 20;
         if (this->activeTab == tab) {
             fgColor = (Color *)this->getAttributeObj("active_tab_fgcolor");
             Color *bgColor = (Color *)this->getAttributeObj("active_tab_bgcolor");
@@ -81,7 +130,7 @@ void TabBarElement::Draw(int x, int y, GraphicsContext *g) {
         g->drawString((char *)title->c_str(), font, fgColor, left + x + 20, y + (this->getHeight() / 2) - (strSize.height / 2), strSize.width, strSize.height);
         left += width;
         ++it;
-    } while (it != this->tabs->end());
+    } while (it != this->getTabs()->end());
 }
 
 

@@ -2,19 +2,20 @@
 #include "WhatsNewView.h"
 #include <regex>
 #include "PlayQueueView.h"
-#include <list>
+#include <vector>
 namespace spider {
     ViewStackElement::ViewStackElement()
     : BoxElement::BoxElement() {
          this->history = new std::stack<string *>;
          this->future = new std::stack<string *>;
     }
+
     ViewStackElement::ViewStackElement(Element *parent)
      : BoxElement::BoxElement(parent) {
          this->setParent(this);
          this->history = new std::stack<string *>;
          this->future = new std::stack<string *>;
-        list<Node *> *children = this->getChildNodes();
+        vector<Node *> *children = this->getChildNodes();
     }
     /**
      * Main navigation handler inside Spotify
@@ -27,7 +28,7 @@ namespace spider {
         // Hide all views
         this->pack();
         this->invalidate();
-        for (std::list<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
+        for (std::vector<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
             Node *node = static_cast<Node *>(*it);
             ViewElement *view = (ViewElement *)node;
             if (view->acceptsUri(uri)) {
@@ -63,9 +64,9 @@ namespace spider {
 
             // Load album view and navigate to apporiate artist
 
-        } else if (std::regex_match(uri.c_str(), std::regex("^spoyler:user:(.*):playlist:(.*)"))) {
+        } else if (std::regex_match(uri.c_str(), std::regex("^spoyler:user:(.*):playvector:(.*)"))) {
 
-            // Load user playlists view
+            // Load user playvectors view
 
         } else if (std::regex_match(uri.c_str(), std::regex("^spoyler:internal:radio"))) {
 
@@ -80,7 +81,7 @@ namespace spider {
             // Show error message (The URI could not be found)
             return;
         }
-        list<Node *> *children = this->getChildNodes();
+        vector<Node *> *children = this->getChildNodes();
         if (view != NULL) {
             this->appendChild(view);
             view->navigate(uri);

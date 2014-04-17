@@ -1,7 +1,7 @@
 #ifndef TABBARELEMENT_H
 #define TABBARELEMENT_H
 #include "Element.h"
-#include <list>
+#include <vector>
 namespace spider {
 class TabBarElement;
 class Tab {
@@ -38,16 +38,16 @@ class TabBarElement : public Element
     public:
         TabBarElement();
         TabBarElement(Element *parent);
-        void mousedown(int mouseButton, int x, int y);
         void addTab(string *id, string *name, string *uri);
         virtual ~TabBarElement();
+        void mousedown(int mouseButton, int x, int y);
         void Draw(int x, int y, GraphicsContext *g);
-        list<Tab *> *getTabs() {
+        vector<Tab *> *getTabs() {
             return this->tabs;
         }
         Tab *activeTab;
+        vector<Tab *> *tabs;
     protected:
-        list<Tab *> *tabs;
     private:
 };
 }

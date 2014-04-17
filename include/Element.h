@@ -21,7 +21,7 @@ namespace spider {
         bool visible;
         margin *margins;
         margin *padding;
-        std::list<Observer *> *observers;
+        std::vector<Observer *> *observers;
         FontStyle *font;
         char *id;
         char *data;
@@ -48,9 +48,9 @@ namespace spider {
             return this->visible;
         }
         Element *getWindowElement() {
-            return this->windowElement;
+             return this->windowElement;
         }
-        GraphicsContext *createGraphics();
+        virtual GraphicsContext *createGraphics();
         void setWindowElement(Element *windowElement) {
             this->windowElement = windowElement;
         }
@@ -89,9 +89,9 @@ namespace spider {
         char *getInnerText();
         void setInnerText(char *data);
         void addEventListener(string evt, s_event callback);
-        void mouseMove(int& x, int& y);
-        void mouseClick(int& mouseButton, int& x, int& y);
-        void mouseDown(int& mouseButton, int& x, int& y);
+        virtual void mouseMove(int& x, int& y) {}
+        virtual void mouseClick(int& mouseButton, int& x, int& y);
+        virtual void mouseDown(int& mouseButton, int& x, int& y);
         virtual void click(int mouseButton, int x, int y);
         virtual void mousedown(int mouseButton, int x, int y);
         int getY();

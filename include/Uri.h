@@ -5,7 +5,7 @@ namespace spider {
     class Uri {
 	private:
 
-		list<char *> *fragments;
+		vector<char *> *fragments;
 	public:
 		char *protocol;
 		char *entity;

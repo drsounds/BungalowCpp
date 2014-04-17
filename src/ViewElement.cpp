@@ -1,21 +1,22 @@
 #include "ViewElement.h"
 namespace spider {
 ViewElement::ViewElement()
- : FlowElement::FlowElement()
+ : VBoxElement::VBoxElement()
 {
 
     //ctor
 }
 void ViewElement::pack() {
-    FlowElement::pack();
+    VBoxElement::pack();
 }
 
 ViewElement::ViewElement(Element *parent)
- : FlowElement::FlowElement(parent)
+ : VBoxElement::VBoxElement(parent)
 {
     //ctor
 }
 void ViewElement::navigate(string uri) {
+
 }
 ViewElement::~ViewElement()
 {

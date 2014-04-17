@@ -3,8 +3,8 @@
 #include "Win32GraphicsContext.h"
 namespace spider {
     void Win32WindowElement::Draw(GraphicsContext *graphics) {
-        std::list<Node *> *elements = this->getChildNodes();
-        for (std::list<Node *>::iterator it = elements->begin(); it != elements->end(); ++it) {
+        std::vector<Node *> *elements = this->getChildNodes();
+        for (std::vector<Node *>::iterator it = elements->begin(); it != elements->end(); ++it) {
             Node *node = (Node *)*it;
             Element *elm = static_cast<Element *>(node);
             if (elm->isVisible())
@@ -31,7 +31,7 @@ namespace spider {
 
         RECT clientRect;
         GetWindowRect(this->getHandle(),&clientRect);
-        for (list<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
+        for (vector<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
             Element *elm = (Element *)static_cast<Node *>(*it);
             elm->setX(0);
             elm->setY(0);
@@ -48,6 +48,7 @@ namespace spider {
     }
     void Win32WindowElement::SampleLayout() {
         this->set("bgcolor", "#474747");
+        this->setWindowElement(this);
         this->mainWindow = new MainWindowElement(this);
         this->mainWindow->setWindowElement((WindowElement *)this);
         this->mainWindow->setVisible(true);

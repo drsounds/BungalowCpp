@@ -6,7 +6,7 @@ namespace spider {
     Node::Node() {
         if(this->window == NULL)
             this->window = this;
-            this->children = new list<Node *>();
+            this->children = new vector<Node *>();
             this->properties = new map<string, void*>();
             this->attributes = new map<string, string*>();
     }
@@ -19,7 +19,7 @@ namespace spider {
         void *t = (void *)(*this->properties)[prop];
         return t;
     }
-    std::list<Node *> *Node::getChildNodes() {
+    std::vector<Node *> *Node::getChildNodes() {
         return (this->children);
     }
     bool Node::hasAttribute(string attr) {
@@ -62,9 +62,9 @@ namespace spider {
     }
 
     void Node::appendChild(spider::Node *child) {
-        list<Node *> *nodes = this->children;
+        vector<Node *> *nodes = this->children;
         if (nodes == NULL) {
-            nodes = new list<Node *>();
+            nodes = new vector<Node *>();
         }
         nodes->push_back(child);
         child->setParent(this);

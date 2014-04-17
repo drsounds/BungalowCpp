@@ -3,42 +3,43 @@
 namespace spider {
 
 void Element::mouseDown(int& mouseButton, int& x, int& y) {
-    int xx = this->getAbsoluteBounds() != NULL ? x - this->getAbsoluteBounds()->y : x;
-    int yy = this->getAbsoluteBounds() != NULL ? y - this->getAbsoluteBounds()->y : y;
-	MouseEventArgs *me = new MouseEventArgs(mouseButton, xx, yy);
 
-	this->notify(string("mousedown"), this, me);
 }
 
 void Element::mouseClick(int& mouseButton, int& x, int& y) {
-    int xx = this->getAbsoluteBounds() != NULL ? x - this->getAbsoluteBounds()->y : x;
+
+}
+GraphicsContext *Element::createGraphics() {
+    return this->windowElement->createGraphics();
+}
+void Element::click(int mouseButton, int x, int y) {
+	int xx = this->getAbsoluteBounds() != NULL ? x - this->getAbsoluteBounds()->y : x;
     int yy = this->getAbsoluteBounds() != NULL ? y - this->getAbsoluteBounds()->y : y;
 	MouseEventArgs *me = new MouseEventArgs(mouseButton, xx, yy);
 
 	this->notify(string("click"), this, me);
-}
-GraphicsContext *Element::createGraphics() {
-    return this->getWindowElement()->createGraphics();
-}
-void Element::click(int mouseButton, int x, int y) {
-	this->mouseClick(mouseButton, x, y);
-	for(list<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
+	for(vector<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
 		Element *elm = static_cast<Element *>(*it);
 
-		if(x > elm->x && x < elm->x + elm->getWidth() &&
-			y > elm->y && y < elm->y + elm->getHeight()) {
+		if (elm->getAbsoluteBounds() != NULL)
+		if(x > elm->getAbsoluteBounds()->x && x < elm->getAbsoluteBounds()->x + elm->getAbsoluteBounds()->width &&
+			y > elm->getAbsoluteBounds()->y && y < elm->getAbsoluteBounds()->y + elm->getAbsoluteBounds()->width) {
 
 			elm->click(mouseButton, x , y);
 		}
 	}
 }
 void Element::mousedown(int mouseButton, int x, int y) {
-	this->mouseDown(mouseButton, x, y);
-	for(list<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
-		Element *elm = static_cast<Element *>(*it);
+	int xx = this->getAbsoluteBounds() != NULL ? x - this->getAbsoluteBounds()->y : x;
+    int yy = this->getAbsoluteBounds() != NULL ? y - this->getAbsoluteBounds()->y : y;
+	MouseEventArgs *me = new MouseEventArgs(mouseButton, xx, yy);
 
-		if(x > elm->x && x < elm->x + elm->getWidth() &&
-			y > elm->y && y < elm->y + elm->getHeight()) {
+	this->notify(string("mousedown"), this, me);
+	for(vector<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
+		Element *elm = static_cast<Element *>(*it);
+        if (elm->getAbsoluteBounds() != NULL)
+		if(x > elm->getAbsoluteBounds()->x && x < elm->getAbsoluteBounds()->x + elm->getAbsoluteBounds()->width &&
+			y > elm->getAbsoluteBounds()->y && y < elm->getAbsoluteBounds()->y + elm->getAbsoluteBounds()->width) {
 
 			elm->mousedown(mouseButton, x, y);
 		}
@@ -54,7 +55,7 @@ Element::Element() :
 	this->scrollY = 0;
     this->data = NULL;
     this->visible = true;
-	this->observers = new list<Observer *>();
+	this->observers = new vector<Observer *>();
     this->set("fgcolor", new string("#ffffff"));
     this->set("bgcolor", new string("#000000"));
     this->set("font", new string("MS Sans Serif"));
@@ -94,7 +95,7 @@ Element::Element(Element *parent) :
 	this->scrollX = 0;
 	this->scrollY = 0;
     this->data = NULL;
-	this->observers = new list<Observer *>();
+	this->observers = new vector<Observer *>();
 	this->setParent(parent);
     this->set("fgcolor", new string("#ffffff"));
     this->set("bgcolor", new string("#000000"));
@@ -128,6 +129,8 @@ Element::Element(Element *parent) :
 }
 void Element::invalidate() {
     rectangle *rect = this->getAbsoluteBounds();
+    if (rect == NULL)
+        return;
     WindowElement *we = (WindowElement *)this->getWindowElement();
     we->invalidateRegion(*rect);
 }
@@ -174,7 +177,7 @@ void Element::setZ(int z) {
 	this->z = z;
 }
 void Element::notify(string evt, SPType *sender, EventArgs *data) {
-	for(list<Observer *>::iterator it = this->observers->begin(); it != this->observers->end(); ++it) {
+	for(vector<Observer *>::iterator it = this->observers->begin(); it != this->observers->end(); ++it) {
 		Observer *observer = static_cast<Observer *>(*it);
 		string t = observer->getEvent();
 		if(t == (evt)) {
@@ -188,6 +191,7 @@ void Element::addEventListener(string evt, s_event callback) {
 
 
 	this->observers->push_back(observer);
+
 }
 
 void Element::set(const std::string& title, std::string *val) {
@@ -235,17 +239,18 @@ void Element::Draw(int x, int y, GraphicsContext *c) {
     if (!this->isVisible()) {
         return;
     }
-    if (this->absoluteBounds == NULL)
+
+	spider_position pos;
+	std::vector<Node *> *children = this->getChildNodes();
+	x += this->getX();
+	y += this->getY();
+	if (this->absoluteBounds == NULL)
     this->absoluteBounds = new rectangle;
 
     this->absoluteBounds->x = x;
     this->absoluteBounds->y = y;
     this->absoluteBounds->width = this->getWidth();
     this->absoluteBounds->height = this->getHeight();
-	spider_position pos;
-	std::list<Node *> *children = this->getChildNodes();
-	x += this->getX();
-	y += this->getY();
 	int width =  this->getWidth();
 	int height = this->getHeight();
 
@@ -268,12 +273,12 @@ void Element::Draw(int x, int y, GraphicsContext *c) {
     char *text = this->getInnerText();
     // Draw text
     if (text != NULL)
-        c->drawString(this->getInnerText(), new FontStyle((char *)fontFamily->c_str(), fontSize, fontSize / 2, false, false), fgColor, x, y, 300, 8);
+        c->drawString(this->getInnerText(), new FontStyle((char *)fontFamily->c_str(), fontSize, fontSize / 2, false, false), fgColor, x, y, this->getWidth(), this->getHeight());
 
 	// adjust for scroll
     x -= this->scrollX;
     y -= this->scrollY;
-	for(std::list<Node *>::iterator it = children->begin(); it != children->end(); ++it) {
+	for(std::vector<Node *>::iterator it = children->begin(); it != children->end(); ++it) {
 		Element *elm = static_cast<Element *>(*it);
 		if(elm != NULL) {
 			elm->Draw(x, y, c);

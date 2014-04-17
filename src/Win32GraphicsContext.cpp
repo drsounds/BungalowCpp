@@ -70,13 +70,19 @@ rectangle Win32GraphicsContext::measureString(char *text, FontStyle *font) {
     return rect;
 }
 void Win32GraphicsContext::drawString(char *text, FontStyle *fs, spider::Color *color, int x, int y, int w, int h) {
+    RECT rect;
+    rect.left = x;
+    rect.right = x + w;
+    rect.top = y;
+    rect.bottom = y + h;
     HFONT font = CreateFont(fs->getHeight(), fs->getHeight() / 2, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, ANSI_CHARSET, OUT_DEFAULT_PRECIS,  CLIP_MASK, DEFAULT_QUALITY, FF_MODERN, fs->getFamily());
     SetBkMode(this->hDC, TRANSPARENT);
     COLORREF col = RGB(color->getR(), color->getG(), color->getB());
     SetTextColor(this->hDC, col);
     SelectObject(this->hDC, font);
-    TextOut(this->hDC, x, y, (LPCSTR)text, 12);
+    //TextOut(this->hDC, x, y, (LPCSTR)text, sizeof(text) * sizeof(char));
 
+    DrawText(this->hDC, (LPCSTR)text, sizeof(text) * 3, &rect, 0);
     DeleteObject(font);
 }
 void Win32GraphicsContext::drawControl(int x, int y, int w, int h, char *name) {

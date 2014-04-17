@@ -31,7 +31,7 @@ void spider::ButtonElement::Draw(int x, int y, spider::GraphicsContext *c)
 		int x = (this->getWidth() / 2) - (tSize.width / 2) + this->absoluteBounds->x;
 		int y = (this->getHeight() / 2) - (tSize.height / 2) + this->absoluteBounds->y;
 
-		c->drawString(text,font, fgColor, x, y, 255, 8);
+		c->drawString(text,font, fgColor, x, y, this->getWidth(), tSize.height);
 		delete font;
 	}
 }
