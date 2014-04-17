@@ -19,6 +19,7 @@ namespace spider {
 		virtual void drawControl(int x, int y, int w, int h, char *name) {}
 		virtual void drawString(char *text, FontStyle *fs, Color *color, int x, int y, int w, int h) {}
 		virtual void invalidateRegion(rectangle region) {}
+		virtual void drawHTMLText(char *html, FontStyle *fs, Color *color, int x, int y, int w, int h) {}
 		virtual rectangle measureString(char *text, spider::FontStyle *font) {}
 		void setFontStyle(spider::FontStyle *fs) {
 			this->fontStyle = fs;

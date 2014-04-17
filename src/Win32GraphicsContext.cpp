@@ -28,6 +28,9 @@ void Win32GraphicsContext::drawLine(int x1, int y1, int x2, int y2, Color *color
 
 
 }
+void Win32GraphicsContext::drawHTMLText(Html *html, FontStyle *fs, Color *color, int x, int y, int w, int h) {
+
+}
 
 
 void Win32GraphicsContext::invalidateRegion(spider::rectangle rect) {

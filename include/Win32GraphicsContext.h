@@ -30,6 +30,7 @@ namespace spider {
 		void setFontStyle(spider::FontStyle *fs);
 		void drawControl(int x, int y, int w, int h, char *name);
 		void setOrigo(const int& x, const int& y);
+		void drawHTMLText(char *html, FontStyle *fs, Color *color, int x, int y, int w, int h);
 		rectangle measureString(char *text, spider::FontStyle *font);
 	};
 };

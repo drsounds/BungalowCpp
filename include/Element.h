@@ -56,6 +56,13 @@ namespace spider {
         }
         void setVisible(bool visible) {
             this->visible = visible;
+            this->getParent()->pack();
+        }
+        void show() {
+            this->setVisible(true);
+        }
+        void hide() {
+            this->setVisible(false);
         }
         bool isScrollable() {
             return this->scrollable;

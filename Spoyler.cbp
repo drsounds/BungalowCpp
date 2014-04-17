@@ -57,7 +57,9 @@
 		<Unit filename="include/FontStyle.h" />
 		<Unit filename="include/GraphicsContext.h" />
 		<Unit filename="include/HBoxElement.h" />
+		<Unit filename="include/HTML.h" />
 		<Unit filename="include/Image.h" />
+		<Unit filename="include/InfoElement.h" />
 		<Unit filename="include/InputElement.h" />
 		<Unit filename="include/MainWindowElement.h" />
 		<Unit filename="include/MouseEventArgs.h" />
@@ -68,6 +70,7 @@
 		<Unit filename="include/StartView.h" />
 		<Unit filename="include/TabBarElement.h" />
 		<Unit filename="include/TabbarViewElement.h" />
+		<Unit filename="include/TextElement.h" />
 		<Unit filename="include/TreeAdapter.h" />
 		<Unit filename="include/TreeItem.h" />
 		<Unit filename="include/TreeViewElement.h" />
@@ -93,7 +96,9 @@
 		<Unit filename="src/FontStyle.cpp" />
 		<Unit filename="src/GraphicsContext.cpp" />
 		<Unit filename="src/HBoxElement.cpp" />
+		<Unit filename="src/HTML.cpp" />
 		<Unit filename="src/Image.cpp" />
+		<Unit filename="src/InfoElement.cpp" />
 		<Unit filename="src/InputElement.cpp" />
 		<Unit filename="src/MainWindowElement.cpp" />
 		<Unit filename="src/MouseEventArgs.cpp" />
@@ -104,6 +109,7 @@
 		<Unit filename="src/StartView.cpp" />
 		<Unit filename="src/TabBarElement.cpp" />
 		<Unit filename="src/TabbarViewElement.cpp" />
+		<Unit filename="src/TextElement.cpp" />
 		<Unit filename="src/TreeAdapter.cpp" />
 		<Unit filename="src/TreeItem.cpp" />
 		<Unit filename="src/TreeViewElement.cpp" />
