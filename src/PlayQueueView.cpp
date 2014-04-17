@@ -3,6 +3,7 @@
 namespace spider {
     namespace views {
         PlayQueueView::PlayQueueView()
+         : ViewElement()
         {
             //ctor
         }

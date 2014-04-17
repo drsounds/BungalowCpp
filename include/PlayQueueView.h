@@ -1,6 +1,6 @@
 #ifndef PLAYQUEUEVIEW_H
 #define PLAYQUEUEVIEW_H
-
+#include "Element.h"
 #include "ViewElement.h"
 namespace spider {
     namespace views {

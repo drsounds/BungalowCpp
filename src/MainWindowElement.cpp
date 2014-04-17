@@ -1,4 +1,5 @@
 #include "MainWindowElement.h"
+#include "StartView.h"
 namespace spider {
     MainWindowElement::MainWindowElement()
     {
@@ -81,6 +82,8 @@ namespace spider {
         viewStack->set("bgcolor", "#373737");
         body->appendChild(viewStack);
         viewStack->set("flex", "1");
+
+        viewStack->appendChild(new spider::views::StartView(this));
         spider::HBoxElement *footer = new spider::HBoxElement(this);
         footer->set("bgcolor", "#444444");
         footer->set("height", "86");

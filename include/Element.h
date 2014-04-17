@@ -50,6 +50,7 @@ namespace spider {
         Element *getWindowElement() {
             return this->windowElement;
         }
+        GraphicsContext *createGraphics();
         void setWindowElement(Element *windowElement) {
             this->windowElement = windowElement;
         }
@@ -75,9 +76,7 @@ namespace spider {
             this->scrollY = y;
         }
         void notify(string evt, SPType *sender, EventArgs *data);
-        FontStyle *getFont() {
-            return this->font;
-        }
+        FontStyle *getFont();
         void setFont(FontStyle *font)  {
             this->font = font;
         }
@@ -93,8 +92,8 @@ namespace spider {
         void mouseMove(int& x, int& y);
         void mouseClick(int& mouseButton, int& x, int& y);
         void mouseDown(int& mouseButton, int& x, int& y);
-        void click(int mouseButton, int x, int y);
-        void mousedown(int mouseButton, int x, int y);
+        virtual void click(int mouseButton, int x, int y);
+        virtual void mousedown(int mouseButton, int x, int y);
         int getY();
         int getWidth();
         int getHeight();

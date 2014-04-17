@@ -17,6 +17,9 @@ void Element::mouseClick(int& mouseButton, int& x, int& y) {
 
 	this->notify(string("click"), this, me);
 }
+GraphicsContext *Element::createGraphics() {
+    return this->getWindowElement()->createGraphics();
+}
 void Element::click(int mouseButton, int x, int y) {
 	this->mouseClick(mouseButton, x, y);
 	for(list<Node *>::iterator it = this->getChildNodes()->begin(); it != this->getChildNodes()->end(); ++it) {
@@ -73,6 +76,14 @@ Element::Element() :
 	this->padding->right= 0;
 	this->padding->bottom = 0;
 
+}
+FontStyle *Element::getFont() {
+    int fontSize = (int)this->getAttributeObj("size");
+    string *fontFamily = (string *)this->getAttributeObj("font");
+    if (fontFamily == NULL) {
+        fontFamily = new string("MS Sans Serif");
+    }
+    return new FontStyle((char *)fontFamily->c_str(), fontSize, false, false, false);
 }
 Element::Element(Element *parent) :
     Node() {

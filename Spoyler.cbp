@@ -63,6 +63,7 @@
 		<Unit filename="include/MouseEventArgs.h" />
 		<Unit filename="include/Node.h" />
 		<Unit filename="include/Observer.h" />
+		<Unit filename="include/PlayQueueView.h" />
 		<Unit filename="include/SPType.h" />
 		<Unit filename="include/TreeAdapter.h" />
 		<Unit filename="include/TreeItem.h" />
@@ -95,6 +96,7 @@
 		<Unit filename="src/MouseEventArgs.cpp" />
 		<Unit filename="src/Node.cpp" />
 		<Unit filename="src/Observer.cpp" />
+		<Unit filename="src/PlayQueueView.cpp" />
 		<Unit filename="src/SPType.cpp" />
 		<Unit filename="src/TreeAdapter.cpp" />
 		<Unit filename="src/TreeItem.cpp" />

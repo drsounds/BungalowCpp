@@ -24,7 +24,9 @@ namespace spider {
     Win32WindowElement::Win32WindowElement(HDC hdc) {
         this->memHDC = hdc;
     }
-
+    GraphicsContext *Win32WindowElement::createGraphics() {
+        return new Win32GraphicsContext(this->hWnd, NULL);
+    }
     void Win32WindowElement::pack() {
 
         RECT clientRect;

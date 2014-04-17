@@ -15,8 +15,6 @@ namespace spider {
          this->history = new std::stack<string *>;
          this->future = new std::stack<string *>;
         list<Node *> *children = this->getChildNodes();
-        this->appendChild(new views::WhatsNewView(this));
-        this->appendChild(new views::PlayQueueView(this));
     }
     /**
      * Main navigation handler inside Spotify

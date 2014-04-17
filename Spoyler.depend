@@ -3513,8 +3513,9 @@
 	"TreeViewElement.h"
 	"libspider.h"
 
-1397681351 source:c:\users\alecca\spoyler\src\mainwindowelement.cpp
+1397728440 source:c:\users\alecca\spoyler\src\mainwindowelement.cpp
 	"MainWindowElement.h"
+	"StartView.h"
 
 1397416490 source:c:\users\alecca\spoyler\src\vbox.cpp
 	"VBox.h"
@@ -3532,7 +3533,7 @@
 	<string>
 	<list>
 
-1397680211 c:\users\alecca\spoyler\include\element.h
+1397729593 c:\users\alecca\spoyler\include\element.h
 	"Node.h"
 	"Observer.h"
 	"FontStyle.h"
@@ -3614,7 +3615,7 @@
 	"Element.h"
 	"expat.h"
 
-1397681491 source:c:\users\alecca\spoyler\src\element.cpp
+1397729734 source:c:\users\alecca\spoyler\src\element.cpp
 	"Element.h"
 	"WindowElement.h"
 
@@ -3674,7 +3675,7 @@
 1397675723 source:c:\users\alecca\spoyler\src\viewelement.cpp
 	"ViewElement.h"
 
-1397681414 source:c:\users\alecca\spoyler\src\viewstackelement.cpp
+1397727751 source:c:\users\alecca\spoyler\src\viewstackelement.cpp
 	"ViewStackElement.h"
 	"WhatsNewView.h"
 	<regex>
@@ -3691,21 +3692,21 @@
 1397660478 source:c:\users\alecca\spoyler\src\win32graphicscontext.cpp
 	"Win32GraphicsContext.h"
 
-1397670315 source:c:\users\alecca\spoyler\src\win32windowelement.cpp
+1397729345 source:c:\users\alecca\spoyler\src\win32windowelement.cpp
 	<Windows.h>
 	"Win32WindowElement.h"
 	"Win32GraphicsContext.h"
 
-1397660561 c:\users\alecca\spoyler\include\win32windowelement.h
+1397728978 c:\users\alecca\spoyler\include\win32windowelement.h
 	<Windows.h>
 	"MainWindowElement.h"
 	"WindowElement.h"
 	"libspider.h"
 
-1397658225 c:\users\alecca\spoyler\include\windowelement.h
+1397729063 c:\users\alecca\spoyler\include\windowelement.h
 	"VBoxElement.h"
 
-1397680728 source:c:\users\alecca\spoyler\src\windowelement.cpp
+1397728967 source:c:\users\alecca\spoyler\src\windowelement.cpp
 	"WindowElement.h"
 
 1397649389 c:\users\alecca\spoyler\include\eventargs.h
@@ -3736,10 +3737,35 @@
 	"HBoxElement.h"
 	<regex>
 
-1397681150 source:c:\users\alecca\spoyler\src\playqueueview.cpp
+1397728044 source:c:\users\alecca\spoyler\src\playqueueview.cpp
 	"PlayQueueView.h"
 	<regex>
 
-1397681055 c:\users\alecca\spoyler\include\playqueueview.h
+1397728053 c:\users\alecca\spoyler\include\playqueueview.h
+	"Element.h"
 	"ViewElement.h"
+
+1397728519 c:\users\alecca\spoyler\include\startview.h
+	"TabbarViewElement.h"
+
+1397728349 c:\users\alecca\spoyler\include\tabbarviewelement.h
+	"Element.h"
+	"ViewElement.h"
+	"TabBarElement.h"
+	"ViewStackElement.h"
+
+1397728839 c:\users\alecca\spoyler\include\tabbarelement.h
+	"Element.h"
+	<list>
+
+1397728647 source:c:\users\alecca\spoyler\src\startview.cpp
+	"StartView.h"
+	<regex>
+	"WhatsNewView.h"
+
+1397730018 source:c:\users\alecca\spoyler\src\tabbarelement.cpp
+	"TabBarElement.h"
+
+1397727969 source:c:\users\alecca\spoyler\src\tabbarviewelement.cpp
+	"TabbarViewElement.h"
 
