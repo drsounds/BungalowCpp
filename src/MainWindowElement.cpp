@@ -1,5 +1,6 @@
 #include "MainWindowElement.h"
 #include "StartView.h"
+#include "SplitterElement.h"
 namespace spider {
     MainWindowElement::MainWindowElement()
     {
@@ -26,14 +27,18 @@ namespace spider {
         this->set("bgcolor", "#373737");
         spider::HBoxElement *header = new spider::HBoxElement(this);
         header->set("bgcolor", "#767676");
-        header->set("height", "56");
+        header->set("height", "55");
         header->getPadding()->top = 3;
         header->getPadding()->left = 3;
         header->getPadding()->bottom = 3;
         header->getPadding()->right =  3;
         this->appendChild(header);
 
-
+        // Add the info element
+        this->infoElement = new spider::InfoElement(this);
+        this->infoElement->set("height", "28");
+        this->appendChild(this->infoElement);
+        this->infoElement->show(Warning, "Test");
 
 
         // Add header children
@@ -44,11 +49,15 @@ namespace spider {
         body->set("height", "100");
         this->appendChild(body);
 
+
+
             // Inside body
         spider::VBoxElement *sidebar = new spider::VBoxElement(body);
         sidebar->set("width", "220");
         sidebar->set("bgcolor", "#474747");
         body->appendChild(sidebar);
+
+        body->appendChild(new SplitterElement(body));
 
         // Add TreeView
         this->treeView = new TreeViewElement(sidebar);

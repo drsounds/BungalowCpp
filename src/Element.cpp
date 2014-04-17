@@ -1,5 +1,6 @@
 #include "Element.h"
 #include "WindowElement.h"
+#include "Observable.h"
 namespace spider {
 
 void Element::mouseDown(int& mouseButton, int& x, int& y) {
@@ -175,23 +176,6 @@ void Element::setY(int y) {
 }
 void Element::setZ(int z) {
 	this->z = z;
-}
-void Element::notify(string evt, SPType *sender, EventArgs *data) {
-	for(vector<Observer *>::iterator it = this->observers->begin(); it != this->observers->end(); ++it) {
-		Observer *observer = static_cast<Observer *>(*it);
-		string t = observer->getEvent();
-		if(t == (evt)) {
-			s_event evt = (observer->getCallback());
-			evt(sender, data);
-		}
-	}
-}
-void Element::addEventListener(string evt, s_event callback) {
-    Observer *observer = new Observer(evt, callback);
-
-
-	this->observers->push_back(observer);
-
 }
 
 void Element::set(const std::string& title, std::string *val) {

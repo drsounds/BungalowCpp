@@ -28,7 +28,7 @@ void Win32GraphicsContext::drawLine(int x1, int y1, int x2, int y2, Color *color
 
 
 }
-void Win32GraphicsContext::drawHTMLText(Html *html, FontStyle *fs, Color *color, int x, int y, int w, int h) {
+void Win32GraphicsContext::drawHTMLText(char *html, FontStyle *fs, Color *color, int x, int y, int w, int h) {
 
 }
 
@@ -61,7 +61,7 @@ void Win32GraphicsContext::fillRectangle(int x1, int y1, int x2, int y2, Color *
 	SelectObject(this->hDC, old);
 	DeleteObject(hpen);
 }
-void Win32GraphicsContext::drawImage(Image *img, int x1, int y1, int x2, int y2) {
+void Win32GraphicsContext::drawImage(char *buffer, int x1, int y1, int x2, int y2) {
 }
 rectangle Win32GraphicsContext::measureString(char *text, FontStyle *font) {
     SIZE sizeText;

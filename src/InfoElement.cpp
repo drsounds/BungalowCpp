@@ -1,46 +1,62 @@
 #include "InfoElement.h"
+#include "ButtonElement.h"
 #include "TextElement.h"
+#include <list>
 namespace spider {
     InfoElement::InfoElement(Element *parent)
-     : Element(parent)
+     : HBoxElement(parent)
     {
         //ctor
         this->set("height", "32");
-        this->getPadding()->top = 20;
-        this->getPadding()->left = 20;
-        this->getPadding()->right = 20;
-        this->getPadding()->bottom = 20;
+        this->getPadding()->top = 5;
+        this->getPadding()->left = 5;
+        this->getPadding()->right = 5;
+        this->getPadding()->bottom = 5;
 
+        TextElement *icon = new TextElement(this);
+        icon->set("width", "128");
+        this->appendChild(icon);
+        this->textElement = new TextElement(this);
+        this->textElement->set("flex", "1");
+        this->appendChild(this->textElement);
 
-        this->hbox = new HBoxElement(this);
-        HBoxElement *spacer = new HBoxElement(hbox);
-        spacer->set("width", "128");
-        this->hbox->appendChild(spacer);
-        TextElement *text = new TextElement(hbox);
-        text->set("flex", "1");
-
+        this->btnElement = new ButtonElement(this);
+        this->btnElement->set("width", "64");
+        this->btnElement->setInnerText("X");
+        this->appendChild(this->btnElement);
 
     }
     void InfoElement::show(MessageType type, char *text) {
         this->setMessageType(type);
+        this->textElement->setInnerText(text);
+        Element::show();
 
     }
     void InfoElement::setMessageType(MessageType type) {
         this->type = type;
+        string bgcolor = "#ffffaa";
         switch(type) {
-        case MessageType.Warning:
-            this->set("bgcolor", "#ffffaa");
+        case Warning:
+            bgcolor = "#ffffaa";
             break;
-        case MessageType.Info:
-            this->set("bgcolor", "#00ffff");
+        case Info:
+            bgcolor = "#00ffff";
             break;
-        case MessageType.Error:
-            this->set("bgcolor", "#ffeeee");
+        case Error:
+            bgcolor = "#ffeeee";
             break;
-        case MessageType.Message:
-            this->set("bgcolor", "#eeffee");
+        case Message:
+            bgcolor = "#eeffee";
             break;
         }
+        this->set("bgcolor", bgcolor);
+
+        for (std::vector<Node *>::iterator it = this->children->begin(); it != this->children->end(); ++it) {
+            Node *node = dynamic_cast<Node *>(*it);
+            node->set("bgcolor", bgcolor);
+
+        }
+
     }
     InfoElement::~InfoElement()
     {

@@ -1,6 +1,7 @@
 #ifndef HTML_H
 #define HTML_H
-
+#include <string>
+using namespace std;
 namespace spider {
 class HTML
 {

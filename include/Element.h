@@ -1,12 +1,12 @@
 #ifndef ELEMENT_H
 #define ELEMENT_H
 #include "Node.h"
-#include "Observer.h"
+#include "Observable.h"
 #include "FontStyle.h"
 #include "MouseEventArgs.h"
 #include "GraphicsContext.h"
 namespace spider {
-    class Element : public Node {
+    class Element : public Node, public Observable {
 
     public:
         rectangle *absoluteBounds;
@@ -54,9 +54,10 @@ namespace spider {
         void setWindowElement(Element *windowElement) {
             this->windowElement = windowElement;
         }
-        void setVisible(bool visible) {
+        virtual void setVisible(bool visible) {
             this->visible = visible;
-            this->getParent()->pack();
+
+            ((Element *)this->getParent())->pack();
         }
         void show() {
             this->setVisible(true);

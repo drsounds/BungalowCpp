@@ -1,13 +1,23 @@
 #ifndef IMAGE_H
 #define IMAGE_H
-
+#include <string>
+#include <Observable.h>
+#include <boost/thread.hpp>
+using namespace std;
 namespace spider {
-class Image
+class Image : public Observable
 {
+     protected:
+        char *imageData;
+        char *type;
+        string *uri;
+        boost::thread *worker;
     public:
-        Image();
+        Image(string *uri);
         virtual ~Image();
-    protected:
+        void download();
+        void downloadImageAsync();
+
     private:
 };
 }

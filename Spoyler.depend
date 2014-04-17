@@ -3505,17 +3505,19 @@
 1390983432 c:\users\alecca\spoyler\include\elements.h
 	"libspider.h"
 
-1397742532 c:\users\alecca\spoyler\include\mainwindowelement.h
+1397763621 c:\users\alecca\spoyler\include\mainwindowelement.h
 	"VBoxElement.h"
 	"HBoxElement.h"
 	"ViewStackElement.h"
 	"ButtonElement.h"
+	"InfoElement.h"
 	"TreeViewElement.h"
 	"libspider.h"
 
-1397748471 source:c:\users\alecca\spoyler\src\mainwindowelement.cpp
+1397764628 source:c:\users\alecca\spoyler\src\mainwindowelement.cpp
 	"MainWindowElement.h"
 	"StartView.h"
+	"SplitterElement.h"
 
 1397416490 source:c:\users\alecca\spoyler\src\vbox.cpp
 	"VBox.h"
@@ -3533,9 +3535,9 @@
 	<string>
 	<vector>
 
-1397748471 c:\users\alecca\spoyler\include\element.h
+1397765049 c:\users\alecca\spoyler\include\element.h
 	"Node.h"
-	"Observer.h"
+	"Observable.h"
 	"FontStyle.h"
 	"MouseEventArgs.h"
 	"GraphicsContext.h"
@@ -3557,7 +3559,7 @@
 	"libspider.h"
 	"EventArgs.h"
 
-1397657167 c:\users\alecca\spoyler\include\graphicscontext.h
+1397764707 c:\users\alecca\spoyler\include\graphicscontext.h
 	"FontStyle.h"
 	"libspider.h"
 	"Color.h"
@@ -3587,7 +3589,9 @@
 1397665078 c:\users\alecca\spoyler\include\boxelement.h
 	"Element.h"
 
-1397423301 c:\users\alecca\spoyler\include\image.h
+1397765127 c:\users\alecca\spoyler\include\image.h
+	<string>
+	<Observable.h>
 
 1397746698 source:c:\users\alecca\spoyler\src\boxelement.cpp
 	"BoxElement.h"
@@ -3615,9 +3619,10 @@
 	"Element.h"
 	"expat.h"
 
-1397750541 source:c:\users\alecca\spoyler\src\element.cpp
+1397765018 source:c:\users\alecca\spoyler\src\element.cpp
 	"Element.h"
 	"WindowElement.h"
+	"Observable.h"
 
 1397426322 source:c:\users\alecca\spoyler\src\fontstyle.cpp
 	"FontStyle.h"
@@ -3682,14 +3687,14 @@
 	"PlayQueueView.h"
 	<vector>
 
-1397657257 c:\users\alecca\spoyler\include\win32graphicscontext.h
+1397754415 c:\users\alecca\spoyler\include\win32graphicscontext.h
 	<Windows.h>
 	<wingdi.h>
 	<map>
 	"Color.h"
 	"GraphicsContext.h"
 
-1397750771 source:c:\users\alecca\spoyler\src\win32graphicscontext.cpp
+1397763851 source:c:\users\alecca\spoyler\src\win32graphicscontext.cpp
 	"Win32GraphicsContext.h"
 
 1397746697 source:c:\users\alecca\spoyler\src\win32windowelement.cpp
@@ -3768,4 +3773,47 @@
 
 1397749485 source:c:\users\alecca\spoyler\src\tabbarviewelement.cpp
 	"TabbarViewElement.h"
+
+1397763162 source:c:\users\alecca\spoyler\src\html.cpp
+	"HTML.h"
+	<regex>
+
+1397763129 c:\users\alecca\spoyler\include\html.h
+	<string>
+
+1397763724 c:\users\alecca\spoyler\include\infoelement.h
+	"TextElement.h"
+	"HBoxElement.h"
+	"ButtonElement.h"
+
+1397754292 c:\users\alecca\spoyler\include\textelement.h
+	"Element.h"
+
+1397764109 source:c:\users\alecca\spoyler\src\infoelement.cpp
+	"InfoElement.h"
+	"ButtonElement.h"
+	"TextElement.h"
+	<list>
+
+1397763303 source:c:\users\alecca\spoyler\src\linkelement.cpp
+	"LinkElement.h"
+
+1397763319 c:\users\alecca\spoyler\include\linkelement.h
+	"TextElement.h"
+
+1397755139 source:c:\users\alecca\spoyler\src\textelement.cpp
+	"TextElement.h"
+
+1397764279 c:\users\alecca\spoyler\include\splitterelement.h
+	"Element.h"
+
+1397764304 source:c:\users\alecca\spoyler\src\splitterelement.cpp
+	"SplitterElement.h"
+
+1397765088 c:\users\alecca\spoyler\include\observable.h
+	"libspider.h"
+	"SPType.h"
+	"Observer.h"
+	<list>
+	"EventArgs.h"
 

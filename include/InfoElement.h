@@ -1,6 +1,8 @@
 #ifndef INFOELEMENT_H
 #define INFOELEMENT_H
+#include "TextElement.h"
 #include "HBoxElement.h"
+#include "ButtonElement.h"
 namespace spider {
 enum MessageType {
     Info, Warning, Error, Message
@@ -12,10 +14,13 @@ class InfoElement : public HBoxElement
     protected:
         MessageType type;
         HBoxElement *hbox;
+        TextElement *textElement;
+        ButtonElement *btnElement;
     public:
-        MessageType getType() {
+        MessageType getMessageType() {
             return this->type;
         }
+        void show(MessageType type, char *text);
         void setMessageType(MessageType type);
         InfoElement(Element *parent);
         virtual ~InfoElement();
