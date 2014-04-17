@@ -3615,7 +3615,7 @@
 	"Element.h"
 	"expat.h"
 
-1397748471 source:c:\users\alecca\spoyler\src\element.cpp
+1397750541 source:c:\users\alecca\spoyler\src\element.cpp
 	"Element.h"
 	"WindowElement.h"
 
@@ -3689,7 +3689,7 @@
 	"Color.h"
 	"GraphicsContext.h"
 
-1397749841 source:c:\users\alecca\spoyler\src\win32graphicscontext.cpp
+1397750771 source:c:\users\alecca\spoyler\src\win32graphicscontext.cpp
 	"Win32GraphicsContext.h"
 
 1397746697 source:c:\users\alecca\spoyler\src\win32windowelement.cpp

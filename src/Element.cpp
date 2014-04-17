@@ -23,7 +23,7 @@ void Element::click(int mouseButton, int x, int y) {
 
 		if (elm->getAbsoluteBounds() != NULL)
 		if(x > elm->getAbsoluteBounds()->x && x < elm->getAbsoluteBounds()->x + elm->getAbsoluteBounds()->width &&
-			y > elm->getAbsoluteBounds()->y && y < elm->getAbsoluteBounds()->y + elm->getAbsoluteBounds()->width) {
+			y > elm->getAbsoluteBounds()->y && y < elm->getAbsoluteBounds()->y + elm->getAbsoluteBounds()->height) {
 
 			elm->click(mouseButton, x , y);
 		}
@@ -39,7 +39,7 @@ void Element::mousedown(int mouseButton, int x, int y) {
 		Element *elm = static_cast<Element *>(*it);
         if (elm->getAbsoluteBounds() != NULL)
 		if(x > elm->getAbsoluteBounds()->x && x < elm->getAbsoluteBounds()->x + elm->getAbsoluteBounds()->width &&
-			y > elm->getAbsoluteBounds()->y && y < elm->getAbsoluteBounds()->y + elm->getAbsoluteBounds()->width) {
+			y > elm->getAbsoluteBounds()->y && y < elm->getAbsoluteBounds()->y + elm->getAbsoluteBounds()->height) {
 
 			elm->mousedown(mouseButton, x, y);
 		}
@@ -58,7 +58,7 @@ Element::Element() :
 	this->observers = new vector<Observer *>();
     this->set("fgcolor", new string("#ffffff"));
     this->set("bgcolor", new string("#000000"));
-    this->set("font", new string("MS Sans Serif"));
+    this->set("font", new string("Tahoma"));
     this->set("size", new string("11"));
 	this->font = new FontStyle("MS Sans Serif", 11, 1, false, false);
 	this->x = 0;

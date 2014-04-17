@@ -70,12 +70,14 @@ rectangle Win32GraphicsContext::measureString(char *text, FontStyle *font) {
     return rect;
 }
 void Win32GraphicsContext::drawString(char *text, FontStyle *fs, spider::Color *color, int x, int y, int w, int h) {
+#define CLEARTYPE_QUALITY 0x05
+#define ANTIALIASED_QUALITY 0x04
     RECT rect;
     rect.left = x;
     rect.right = x + w;
     rect.top = y;
     rect.bottom = y + h;
-    HFONT font = CreateFont(fs->getHeight(), fs->getHeight() / 2, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, ANSI_CHARSET, OUT_DEFAULT_PRECIS,  CLIP_MASK, DEFAULT_QUALITY, FF_MODERN, fs->getFamily());
+    HFONT font = CreateFont(fs->getHeight(), fs->getHeight() / 2, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_CHARACTER_PRECIS,  CLIP_MASK, CLEARTYPE_QUALITY , FF_MODERN | VARIABLE_PITCH, TEXT(fs->getFamily()));
     SetBkMode(this->hDC, TRANSPARENT);
     COLORREF col = RGB(color->getR(), color->getG(), color->getB());
     SetTextColor(this->hDC, col);
